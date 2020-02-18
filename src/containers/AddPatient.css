@@ -1,0 +1,31 @@
+.info {
+  text-align: center;
+}
+#form_table {
+  margin-top: 5%;
+  border: 3px solid #ddd;
+  width: 100%;
+}
+
+#form_table td {
+  width: 50%;
+}
+
+#form_table p {
+  float: right;
+  margin-right: 5%;
+}
+
+#form_table label {
+  width: 20%;
+  height: 20%;
+}
+#form_table input,
+#form_table label {
+  float: left;
+}
+
+#form_table tr,
+#form_table td {
+  border: 3px solid #ddd;
+}

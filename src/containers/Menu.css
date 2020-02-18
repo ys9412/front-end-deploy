@@ -1,0 +1,17 @@
+#icons {
+  width: 100%;
+  margin-left: 36%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.icon {
+  margin-bottom: 5%;
+  margin-right: 5%;
+  width: 10%;
+  height: 10%;
+}
+
+.header {
+  text-align: center;
+}

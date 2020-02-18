@@ -1,0 +1,21 @@
+#tableInfo {
+  width: 100%;
+  margin-top: 5%;
+}
+
+#tableInfo td,
+#tableInfo th {
+  font-size: large;
+  text-align: center;
+  border: 3px solid #ddd;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+#tableInfo th {
+  background-color: rgb(146, 189, 238);
+}
+
+#tableInfo td {
+  cursor: pointer;
+}
