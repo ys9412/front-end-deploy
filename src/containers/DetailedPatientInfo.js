@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./DetailedPatientInfo.css";
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 import map from "./images/map.jpg";
 import circle from "./images/circle.svg";
 
@@ -29,24 +29,43 @@ export default function DetailedPatientInfo(props) {
     datasets: [
       {
         label: "Heart rate(bpm)",
-        fill: false,
-        lineTension: 0.5,
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
+        borderWidth: 1,
         data: [83, 90, 89, 95, 103, 107]
       },
       {
         label: "Stress level(sl)",
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "red",
-        borderWidth: 2,
+        backgroundColor: "rgba(255, 246, 143, 1)",
+        borderColor: "rgba(0,0,0,1)",
+        borderWidth: 1,
         data: [42, 58, 53, 70, 82, 88]
       }
     ]
   };
+
+  const room = {
+    labels: [
+      "Waiting",
+      "Exam 1",
+      "Exam 2",
+      "Exam 3",
+      "Exam 4",
+      "Exam 5",
+      "LA1",
+      "LA2"
+    ],
+    datasets: [
+      {
+        label: "Waiting time (min)",
+        backgroundColor: "rgba(190, 144, 212,1)",
+        borderColor: "rgba(0,0,0,1)",
+        borderWidth: 1,
+        data: [12, 10, 6.5, 3, 0, 7]
+      }
+    ]
+  };
+
   function handleSubmit(event) {
     event.preventDefault();
   }
@@ -61,13 +80,29 @@ export default function DetailedPatientInfo(props) {
         <p>Stress level: 89 sl</p>
         <p>Waiting time: 25 minutes 13 seconds</p>
       </div>
-      <Line
-        className="chart"
+      <Bar
+        className="heart_rate_chart"
         data={state}
         options={{
           title: {
             display: true,
             text: "Heart Rate & Stress Level",
+            fontSize: 20
+          },
+          legend: {
+            display: true,
+            position: "right"
+          }
+        }}
+      />
+
+      <Bar
+        className="room_chart"
+        data={room}
+        options={{
+          title: {
+            display: true,
+            text: "Time Spent at Each Room",
             fontSize: 20
           },
           legend: {
