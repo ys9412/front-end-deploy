@@ -53,7 +53,9 @@ export default function DetailedPatientInfo(props) {
       "Exam 4",
       "Exam 5",
       "LA1",
-      "LA2"
+      "LA2",
+      "LA3",
+      "LA4"
     ],
     datasets: [
       {
@@ -83,6 +85,8 @@ export default function DetailedPatientInfo(props) {
       <Bar
         className="heart_rate_chart"
         data={state}
+        width={60}
+        height={20}
         options={{
           title: {
             display: true,
@@ -95,10 +99,12 @@ export default function DetailedPatientInfo(props) {
           }
         }}
       />
-
+      <p className="break"></p>
       <Bar
         className="room_chart"
         data={room}
+        width={60}
+        height={20}
         options={{
           title: {
             display: true,
