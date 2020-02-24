@@ -23,28 +23,28 @@ export default function Menu(props) {
   return (
     <div className="Menu">
       <h1 className="header">UCI Medical Center Radiation Oncology</h1>
-      <table id="icons">
+      <table className="menu">
         <tr>
           <tb>
             <a href="./location">
-              <img src={location} alt="Location logo" className="icon" />
+              <img src={location} alt="Location logo" />
             </a>
           </tb>
           <tb>
             <a href="./patient_list">
-              <img src={lookup} alt="Lookup logo" className="icon" />
+              <img src={lookup} alt="Lookup logo" />
             </a>
           </tb>
         </tr>
         <tr>
           <tb>
             <a href="./add_patient">
-              <img src={add} alt="Add logo" className="icon" />
+              <img src={add} alt="Add logo" />
             </a>
           </tb>
           <tb>
             <a href="./location">
-              <img src={feedback} alt="Feedback logo" className="icon" />
+              <img src={feedback} alt="Feedback logo" />
             </a>
           </tb>
         </tr>

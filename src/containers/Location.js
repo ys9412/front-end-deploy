@@ -34,32 +34,32 @@ export default function Location(props) {
         <p>Jennifer Johnson</p>
         <img src={circle} alt="circle" />
       </div>
-      <Grid className="grid">
-        <Row columns={2}>
-          <Col>
-            <img src={circle} alt="circle" className="img" />
-          </Col>
-          <Col>
+      <table className="grid">
+        <tr>
+          <td>
+            <img src={circle} alt="circle" className="note" />
+          </td>
+          <td>
             <p className="txt">Low stress level</p>
-          </Col>
-        </Row>
-        <Row columns={2}>
-          <Col>
-            <img src={triangle} alt="triangle" className="img" />
-          </Col>
-          <Col>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src={triangle} alt="triangle" className="note" />
+          </td>
+          <td>
             <p className="txt">Medium stress level</p>
-          </Col>
-        </Row>
-        <Row columns={2}>
-          <Col>
-            <img src={star} alt="star" className="img" />
-          </Col>
-          <Col>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src={star} alt="star" className="note" />
+          </td>
+          <td>
             <p className="txt">High stress level</p>
-          </Col>
-        </Row>
-      </Grid>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

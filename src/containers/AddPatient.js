@@ -3,7 +3,7 @@ import { RadioGroup, RadioButton } from "react-radio-buttons";
 import "./AddPatient.css";
 
 export default function AddPatient(props) {
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState();
 
   return (
     <div className="info">
@@ -31,33 +31,26 @@ export default function AddPatient(props) {
               <p>Sex:</p>
             </td>
             <td>
-              <label>
-                <input
-                  className="name"
-                  type="radio"
-                  value="Female"
-                  onChange={e => setSex(e.target.value)}
-                />
-                Female
-              </label>
-              <label>
-                <input
-                  className="name"
-                  type="radio"
-                  value="Male"
-                  onChange={e => setSex(e.target.value)}
-                />
-                Male
-              </label>
+              <select value={sex}>
+                <option value="Female" onSelect={e => setSex(e.target.value)}>
+                  Female
+                </option>
+                <option value="Male" onSelect={e => setSex(e.target.value)}>
+                  Male
+                </option>
+              </select>
             </td>
           </tr>
           <tr>
             <td>
               <p>Date of Birth:</p>
             </td>
-            <td >
+            <td>
+              <label>mm:</label>
               <input type="text" />
+              <label>dd:</label>
               <input type="text" />
+              <label>yyyy:</label>
               <input type="text" />
             </td>
           </tr>

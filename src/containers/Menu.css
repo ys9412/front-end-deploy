@@ -1,15 +1,18 @@
-#icons {
-  width: 100%;
-  margin-left: 36%;
+.menu {
+  width: 50%;
   margin-top: 10%;
   margin-bottom: 10%;
+  margin-left: 32%;
+  margin-right: 32%;
 }
 
-.icon {
+.menu img {
   margin-bottom: 5%;
   margin-right: 5%;
-  width: 10%;
-  height: 10%;
+  margin-left: 5%;
+  width: 20%;
+  height: 20%;
+  float: right;
 }
 
 .header {

@@ -6,7 +6,7 @@
 
 .dot {
   position: absolute;
-  top: 75%;
+  top: 60%;
   bottom: 10%;
   right: 10%;
   left: 50%;
@@ -23,17 +23,19 @@
   height: 85%;
 }
 
-.grid {
-  position: absolute;
-  top: 120%;
-  left: 80%;
-}
-
 .txt {
   font-weight: bold;
 }
 
-.img {
-  width: 2%;
-  height: 2%;
+.note {
+  width: 15%;
+  height: 15%;
+  float: right;
+  margin-right: 5%;
+  margin-bottom: 5%;
+}
+
+table {
+  float: right;
+  margin-bottom: 3%;
 }
