@@ -4,6 +4,11 @@ import "./AddPatient.css";
 
 export default function AddPatient(props) {
   const [sex, setSex] = useState();
+  const [first, setFirst] = useState();
+  const [last, setLast] = useState();
+  const [month, setMonth] = useState();
+  const [day, setDay] = useState();
+  const [year, setYear] = useState();
 
   return (
     <div className="info">
@@ -14,6 +19,8 @@ export default function AddPatient(props) {
             <td>
               <p>Last Name:</p>
             </td>
+          </tr>
+          <tr>
             <td>
               <input type="text" />
             </td>
@@ -22,6 +29,8 @@ export default function AddPatient(props) {
             <td>
               <p>First Name:</p>
             </td>
+          </tr>
+          <tr>
             <td>
               <input type="text" />
             </td>
@@ -30,6 +39,8 @@ export default function AddPatient(props) {
             <td>
               <p>Sex:</p>
             </td>
+          </tr>
+          <tr>
             <td>
               <select value={sex}>
                 <option value="Female" onSelect={e => setSex(e.target.value)}>
@@ -45,17 +56,22 @@ export default function AddPatient(props) {
             <td>
               <p>Date of Birth:</p>
             </td>
+          </tr>
+          <tr>
             <td>
-              <label>mm:</label>
+              <label className="month">Month</label>
               <input type="text" />
-              <label>dd:</label>
+
+              <label className="day">Day</label>
               <input type="text" />
-              <label>yyyy:</label>
+
+              <label className="year">Year</label>
               <input type="text" />
             </td>
           </tr>
         </table>
       </form>
+      <input type="submit" value="Submit" className="submit" />
     </div>
   );
 }

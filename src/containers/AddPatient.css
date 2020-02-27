@@ -3,30 +3,35 @@
 }
 #form_table {
   margin-top: 5%;
-  border: 3px solid #ddd;
   width: 100%;
-}
-
-#form_table td {
-  width: 50%;
+  background-color: rgb(224, 220, 220);
 }
 
 #form_table p {
-  float: right;
-  margin-right: 5%;
+  font-weight: bold;
+  margin-top: 3%;
+  float: left;
+  margin-left: 10%;
 }
 
-#form_table label {
-  width: 20%;
-  height: 20%;
-}
-input,
+#form_table input,
 label,
 select {
   float: left;
+  margin-bottom: 2%;
+  margin-left: 2%;
 }
 
 #form_table tr,
-#form_table td {
-  border: 3px solid #ddd;
+td {
+  border: solid 10px rgba(0, 0, 255, 0);
+}
+
+.submit {
+  margin-top: 3%;
+  width: 15%;
+  height: 5%;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: rgba(31, 70, 243, 0.479);
 }
