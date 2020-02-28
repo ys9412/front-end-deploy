@@ -9,9 +9,34 @@ export default function AddPatient(props) {
   const [day, setDay] = useState();
   const [year, setYear] = useState();
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    alert(
+      "You are submitting " +
+        first +
+        " " +
+        last +
+        " " +
+        sex +
+        " " +
+        day +
+        " " +
+        month +
+        " " +
+        year
+    );
+    /**try {
+      await Auth.signIn(email, password);
+      props.userHasAuthenticated(true);
+      props.history.push("/");
+    } catch (e) {
+      alert(e.message);
+    }**/
+  }
+
   return (
     <div className="info">
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1>New Patient Form</h1>
         <table id="form_table">
           <tr>
@@ -24,10 +49,18 @@ export default function AddPatient(props) {
           </tr>
           <tr>
             <td colspan="3">
-              <input type="text" className="longInput" />
+              <input
+                type="text"
+                className="longInput"
+                onChange={e => setFirst(e.target.value)}
+              />
             </td>
             <td colspan="3">
-              <input type="text" className="longInput" />
+              <input
+                type="text"
+                className="longInput"
+                onChange={e => setLast(e.target.value)}
+              />
             </td>
           </tr>
 
@@ -56,20 +89,36 @@ export default function AddPatient(props) {
           <tr>
             <td colspan="2">
               <label className="month">Month</label>
-              <input type="text" placeholder="(1-12)" className="dob" />
+              <input
+                type="text"
+                placeholder="(1-12)"
+                className="dob"
+                onChange={e => setMonth(e.target.value)}
+              />
             </td>
             <td colspan="2">
               <label className="day">Day</label>
-              <input type="text" placeholder="(1-31)" className="dob" />
+              <input
+                type="text"
+                placeholder="(1-31)"
+                className="dob"
+                onChange={e => setDay(e.target.value)}
+              />
             </td>
             <td colspan="2">
               <label className="year">Year</label>
-              <input type="text" placeholder="(1900-2020)" className="dob" />
+              <input
+                type="text"
+                placeholder="(1900-2020)"
+                className="dob"
+                onChange={e => setYear(e.target.value)}
+              />
             </td>
           </tr>
         </table>
+        <input type="submit" value="Submit" className="submit" />
       </form>
-      <input type="submit" value="Submit" className="submit" />
+      <p>Hello </p>
     </div>
   );
 }
