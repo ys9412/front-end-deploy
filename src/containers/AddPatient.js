@@ -11,21 +11,29 @@ export default function AddPatient(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    alert(
-      "New patient " +
-        first +
-        " " +
-        last +
-        " (" +
-        sex +
-        ", " +
-        day +
-        "/" +
-        month +
-        "/" +
-        year +
-        ") is added to the system."
-    );
+    const errors = [];
+    if (first === undefined || first.length === 0) {
+      errors.push("first name is required");
+    }
+    if (last === undefined || last.length === 0) {
+      errors.push("last name is required");
+      alert(errors);
+    } else
+      alert(
+        "New patient " +
+          first +
+          " " +
+          last +
+          " (" +
+          sex +
+          ", " +
+          day +
+          "/" +
+          month +
+          "/" +
+          year +
+          ") is added to the system."
+      );
     /**try {
       await Auth.signIn(email, password);
       props.userHasAuthenticated(true);
