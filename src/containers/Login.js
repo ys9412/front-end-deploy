@@ -13,7 +13,9 @@ export default function Login(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.history.push("/menu");
+    if (email === "test@gmail.com" && password === "0000")
+      props.history.push("/menu");
+    else alert("Not a valid login information. Pleaser try again.");
     /**try {
       await Auth.signIn(email, password);
       props.userHasAuthenticated(true);

@@ -12,18 +12,19 @@ export default function AddPatient(props) {
   function handleSubmit(event) {
     event.preventDefault();
     alert(
-      "You are submitting " +
+      "New patient " +
         first +
         " " +
         last +
-        " " +
+        " (" +
         sex +
-        " " +
+        ", " +
         day +
-        " " +
+        "/" +
         month +
-        " " +
-        year
+        "/" +
+        year +
+        ") is added to the system."
     );
     /**try {
       await Auth.signIn(email, password);
@@ -72,10 +73,10 @@ export default function AddPatient(props) {
           <tr>
             <td colspan="6">
               <select value={sex}>
-                <option value="Female" onSelect={e => setSex(e.target.value)}>
+                <option value="Female" onChange={e => setSex(e.target.value)}>
                   Female
                 </option>
-                <option value="Male" onSelect={e => setSex(e.target.value)}>
+                <option value="Male" onChange={e => setSex(e.target.value)}>
                   Male
                 </option>
               </select>
@@ -118,7 +119,6 @@ export default function AddPatient(props) {
         </table>
         <input type="submit" value="Submit" className="submit" />
       </form>
-      <p>Hello </p>
     </div>
   );
 }
