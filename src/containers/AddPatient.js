@@ -21,14 +21,14 @@ export default function AddPatient(props) {
     if (month === undefined || month > 12 || month < 1 || isNaN(month)) {
       errors.push("Month is not valid");
     }
-    if (day === undefined || day > 31 || day < 1 || !isNaN(day)) {
+    if (day === undefined || day > 31 || day < 1 || isNaN(day)) {
       errors.push("Day is not valid");
     }
-    if (year === undefined || year > 2020 || year < 1 || !isNaN(year)) {
+    if (year === undefined || year > 2020 || year < 1 || isNaN(year)) {
       errors.push("Year is not valid");
     }
     if (errors.length > 0) alert(errors);
-    else
+    else {
       alert(
         "New patient " +
           first +
@@ -44,6 +44,8 @@ export default function AddPatient(props) {
           year +
           ") is added to the system."
       );
+      props.history.push("/menu");
+    }
     /**try {
       await Auth.signIn(email, password);
       props.userHasAuthenticated(true);
