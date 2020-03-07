@@ -13,12 +13,22 @@ export default function AddPatient(props) {
     event.preventDefault();
     const errors = [];
     if (first === undefined || first.length === 0) {
-      errors.push("first name is required");
+      errors.push("First name is required");
     }
     if (last === undefined || last.length === 0) {
-      errors.push("last name is required");
-      alert(errors);
-    } else
+      errors.push("Last name is required");
+    }
+    if (month === undefined || month > 12 || month < 1 || isNaN(month)) {
+      errors.push("Month is not valid");
+    }
+    if (day === undefined || day > 31 || day < 1 || !isNaN(day)) {
+      errors.push("Day is not valid");
+    }
+    if (year === undefined || year > 2020 || year < 1 || !isNaN(year)) {
+      errors.push("Year is not valid");
+    }
+    if (errors.length > 0) alert(errors);
+    else
       alert(
         "New patient " +
           first +

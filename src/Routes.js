@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./containers/Home";
+import Home from "./containers/Menu";
 import Login from "./containers/Login";
+import SignUp from "./containers/SignUp";
 import NotFound from "./containers/NotFound";
 import Menu from "./containers/Menu";
 import Location from "./containers/Location";
@@ -14,6 +15,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
+      <Route path="/signup" exact component={SignUp} />
       <Route path="/menu" exact component={Menu} />
       <Route path="/location" exact component={Location} />
       <Route
