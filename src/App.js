@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Routes from "./Routes";
 import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
