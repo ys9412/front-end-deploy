@@ -109,7 +109,7 @@ export default function AddPatient(props) {
           </tr>
           <tr>
             <td colspan="2">
-              <label className="month">Month</label>
+              <label className="month">MM</label>
               <input
                 type="text"
                 placeholder="(1-12)"
@@ -118,7 +118,7 @@ export default function AddPatient(props) {
               />
             </td>
             <td colspan="2">
-              <label className="day">Day</label>
+              <label className="day">DD</label>
               <input
                 type="text"
                 placeholder="(1-31)"
@@ -127,7 +127,7 @@ export default function AddPatient(props) {
               />
             </td>
             <td colspan="2">
-              <label className="year">Year</label>
+              <label className="year">YYYY</label>
               <input
                 type="text"
                 placeholder="(1900-2020)"
