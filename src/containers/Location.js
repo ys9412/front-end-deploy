@@ -27,7 +27,6 @@ export default function Location(props) {
   return (
     <div className="Location">
       <h1 className="header">Patient Location</h1>
-      <img src={map} alt="Map" className="map" />
       <div className="dot" onClick={handleSubmit}>
         <p>William Smith</p>
         <img src={circle} alt="circle" />
@@ -35,31 +34,34 @@ export default function Location(props) {
         <img src={circle} alt="circle" />
       </div>
       <table className="grid">
-        <tr>
-          <td>
-            <img src={circle} alt="circle" className="note" />
-          </td>
-          <td>
-            <p className="txt">Low stress level</p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <img src={triangle} alt="triangle" className="note" />
-          </td>
-          <td>
-            <p className="txt">Medium stress level</p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <img src={star} alt="star" className="note" />
-          </td>
-          <td>
-            <p className="txt">High stress level</p>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>
+              <img src={circle} alt="circle" className="note" />
+            </td>
+            <td>
+              <p className="txt">Low stress level</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src={triangle} alt="triangle" className="note" />
+            </td>
+            <td>
+              <p className="txt">Medium stress level</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src={star} alt="star" className="note" />
+            </td>
+            <td>
+              <p className="txt">High stress level</p>
+            </td>
+          </tr>
+        </tbody>
       </table>
+      <img src={map} alt="Map" className="map" />
     </div>
   );
 }

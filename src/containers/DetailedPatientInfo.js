@@ -86,7 +86,7 @@ export default function DetailedPatientInfo(props) {
         className="heart_rate_chart"
         data={state}
         width={60}
-        height={20}
+        height={30}
         options={{
           title: {
             display: true,
@@ -95,7 +95,7 @@ export default function DetailedPatientInfo(props) {
           },
           legend: {
             display: true,
-            position: "right"
+            position: "bottom"
           }
         }}
       />
@@ -104,7 +104,7 @@ export default function DetailedPatientInfo(props) {
         className="room_chart"
         data={room}
         width={60}
-        height={20}
+        height={30}
         options={{
           title: {
             display: true,
@@ -113,7 +113,7 @@ export default function DetailedPatientInfo(props) {
           },
           legend: {
             display: true,
-            position: "right"
+            position: "bottom"
           }
         }}
       />

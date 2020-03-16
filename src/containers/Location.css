@@ -1,26 +1,31 @@
 .header {
   text-align: center;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 3%;
 }
 
 .dot {
   position: absolute;
-  top: 60%;
+  top: 50%;
   bottom: 10%;
   right: 10%;
   left: 50%;
   width: 1.5%;
+  min-width: 0.8em;
   height: 1.5%;
+  min-height: 0.8em;
   font-weight: bold;
-  font-size: large;
+  font-size: 120%;
   color: black;
   cursor: pointer;
 }
 
 .map {
-  width: 85%;
-  height: 85%;
+  width: 90%;
+  height: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  min-width: 30em;
+  min-height: 20em;
 }
 
 .txt {
@@ -28,14 +33,13 @@
 }
 
 .note {
-  width: 15%;
-  height: 15%;
+  width: 10%;
+  height: 10%;
   float: right;
   margin-right: 5%;
-  margin-bottom: 5%;
 }
 
-table {
-  float: right;
-  margin-bottom: 3%;
+.grid {
+  margin-left: 35%;
+  border-color: blue;
 }
