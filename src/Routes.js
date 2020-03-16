@@ -9,6 +9,7 @@ import Location from "./containers/Location";
 import DetaildPatientInfo from "./containers/DetailedPatientInfo";
 import PatientList from "./containers/PatientList";
 import AddPatient from "./containers/AddPatient";
+import Feedback from "./containers/Feedback";
 
 export default function Routes() {
   return (
@@ -25,6 +26,7 @@ export default function Routes() {
       />
       <Route path="/patient_list" exact component={PatientList} />
       <Route path="/add_patient" exact component={AddPatient} />
+      <Route path="/feedback" exact component={Feedback} />
       <Route component={NotFound} />
     </Switch>
   );

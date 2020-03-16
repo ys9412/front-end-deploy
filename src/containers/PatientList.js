@@ -59,7 +59,7 @@ export default function PatientList(props) {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = null;
+  var raw = "";
 
   var requestOptions = {
     method: "GET",

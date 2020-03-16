@@ -43,7 +43,7 @@ export default function Menu(props) {
             </a>
           </tb>
           <tb>
-            <a href="./location">
+            <a href="./feedback">
               <img src={feedback} alt="Feedback logo" />
             </a>
           </tb>
