@@ -8,6 +8,30 @@ import triangle from "./images/SVG/triangle.svg";
 import star from "./images/SVG/star.svg";
 
 export default function Location(props) {
+  const patients = [
+    {
+      id: 1,
+      name: "William Smith",
+      heartRate: 120,
+      stressLevel: 50,
+      img: circle
+    },
+    {
+      id: 2,
+      name: "Jennifer Johnson",
+      heartRate: 100,
+      stressLevel: 30,
+      img: circle
+    },
+    { id: 3, name: "James Brown", heartRate: 80, stressLevel: 10, img: circle }
+  ];
+
+  for (let i = 0; i < patients.length; i++) {
+    if (patients[i].stressLevel <= 10) patients[i].img = circle;
+    else if (patients[i].stressLevel <= 30) patients[i].img = triangle;
+    else if (patients[i].stressLevel <= 50) patients[i].img = star;
+  }
+
   function myfunction() {
     console.log("Clicked");
   }
@@ -28,10 +52,12 @@ export default function Location(props) {
     <div className="Location">
       <h1 className="header">Patient Location</h1>
       <div className="dot" onClick={handleSubmit}>
-        <p>William Smith</p>
-        <img src={circle} alt="circle" />
-        <p>Jennifer Johnson</p>
-        <img src={circle} alt="circle" />
+        <p>{patients[0].name}</p>
+        <img src={patients[0].img} alt="circle" />
+        <p>{patients[1].name}</p>
+        <img src={patients[1].img} alt="circle" />
+        <p>{patients[2].name}</p>
+        <img src={patients[2].img} alt="circle" />
       </div>
       <table className="grid">
         <tbody>
