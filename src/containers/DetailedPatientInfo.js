@@ -6,6 +6,7 @@ import map from "./images/map.jpg";
 import circle from "./images/circle.svg";
 
 export default function DetailedPatientInfo(props) {
+  const { data } = props.location;
   const state = {
     labels: [
       "0 (min)",
@@ -75,8 +76,11 @@ export default function DetailedPatientInfo(props) {
   return (
     <div className="DetailedInfo">
       <div className="basic">
-        <h1 className="name">William Smith</h1>
-        <p>DOB: 12/20/1959</p>
+        <h1 className="name">
+          {data.firstName + " "}
+          {data.lastName}
+        </h1>
+        <p>DOB: {data.dobmonth + "/" + data.dobday + "/" + data.dobyear}</p>
         <p>Sex: Male</p>
         <p>Heart rate: 118 bpm</p>
         <p>Stress level: 89 sl</p>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Grid, Row, Col } from "react-bootstrap";
+import axios from "axios";
 import "./Location.css";
 import map from "./images/map.jpg";
 import circle from "./images/circle.svg";
@@ -8,22 +7,30 @@ import triangle from "./images/SVG/triangle.svg";
 import star from "./images/SVG/star.svg";
 
 export default function Location(props) {
+  const { data } = props.location;
   const patients = [
     {
-      id: 1,
+      id: 3,
+      name: data.firstName + " " + data.lastName,
+      heartRate: 80,
+      stressLevel: 10,
+      img: circle
+    },
+
+    {
+      id: 2,
       name: "William Smith",
       heartRate: 120,
       stressLevel: 50,
       img: circle
     },
     {
-      id: 2,
+      id: 3,
       name: "Jennifer Johnson",
       heartRate: 100,
       stressLevel: 30,
       img: circle
-    },
-    { id: 3, name: "James Brown", heartRate: 80, stressLevel: 10, img: circle }
+    }
   ];
 
   for (let i = 0; i < patients.length; i++) {
@@ -38,7 +45,10 @@ export default function Location(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.history.push("/detailed_patient_info");
+    props.history.push({
+      pathname: "/detailed_patient_info",
+      data: data
+    });
     /**try {
         await Auth.signIn(email, password);
         props.userHasAuthenticated(true);

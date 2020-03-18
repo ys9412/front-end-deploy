@@ -27,6 +27,7 @@ export default function Login(props) {
 
   return (
     <div className="Login">
+      <h1 className="loginHeader">UCI Medical Center Radiation Oncology</h1>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
           <ControlLabel>Email</ControlLabel>
