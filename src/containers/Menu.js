@@ -6,7 +6,7 @@ import lookup from "./images/SVG/lookup.svg";
 import add from "./images/SVG/add.svg";
 import feedback from "./images/SVG/feedback.svg";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const api = "http://54.174.170.217:8080/api/getbyid=1";
+const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
 
 class Menu extends Component {
   constructor(props) {
