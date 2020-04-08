@@ -8,6 +8,8 @@ import "./App.css";
 function App(props) {
   return (
     <div className="App container">
+      <p className="bigHeading">UCI Medical Center</p>
+      <p className="smallHeading">Radiology Oncology</p>
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>

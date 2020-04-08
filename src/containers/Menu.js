@@ -47,7 +47,6 @@ class Menu extends Component {
   render() {
     return (
       <div className="Menu">
-        <h1 className="header">UCI Medical Center Radiation Oncology</h1>
         <table className="menu">
           <tbody>
             <tr>

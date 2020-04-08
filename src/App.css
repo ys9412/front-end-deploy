@@ -5,3 +5,19 @@
 .App .navbar-brand {
   font-weight: bold;
 }
+
+.bigHeading {
+  text-align: center;
+  font-size: 250%;
+  font-weight: 800;
+  margin-bottom: 0;
+  color: rgb(33, 72, 155);
+}
+
+.smallHeading {
+  text-align: center;
+  font-size: 150%;
+  font-weight: bolder;
+  margin-bottom: 2%;
+  color: rgb(33, 72, 155);
+}
