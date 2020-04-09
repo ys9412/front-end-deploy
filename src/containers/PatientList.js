@@ -12,56 +12,30 @@ class PatientList extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  //variable for list of patients
   state = {
-    patients: []
+    patients: [],
   };
-  // var myHeaders = new Headers();
-  // myHeaders.append("Content-Type", "application/json");
 
-  // var raw = "";
-
-  // var requestOptions = {
-  //   method: "GET",
-  //   headers: myHeaders,
-  //   //body: raw,
-  //   redirect: "follow"
-  // };
-
+  //function that retrieves data from backend server using RESTful API every time user opens this page
+  //The retrieved data is saved to the variable "patients"
   componentDidMount() {
     axios
       .get(proxyurl + api)
-      .then(response => response.data)
-      .then(result => {
+      .then((response) => response.data)
+      .then((result) => {
         this.setState({ patients: result });
       })
-      .catch(error => console.log("error", error));
-
-    // fetch(proxyurl + api, requestOptions)
-    //   .then(response => response.text())
-    //   .then(
-    //     result => console.log(result),
-    //     result => (name = result.firstName)
-    //   )
-    //   .catch(error => console.log("error", error));
-
-    // fetch("http://54.174.170.217:8080/")
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setContacts({ contacts: data });
-    //   })
-    //   .catch(console.log);
-    //console.log("result" + result);
-    //setResult(tests.map(test => test.id));
-    //console.log("result" + result);
-    //if (contacts != undefined) setId(contacts.map(contact => contact.id));
-    //else console.log("contacts undefined");
+      .catch((error) => console.log("error", error));
   }
 
-  handleSubmit = e => {
+  //function that transfers patient data to "DetailedPatientInfo" page
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.history.push({
       pathname: "/detailed_patient_info",
-      data: this.state.patients
+      data: this.state.patients,
     });
   };
 

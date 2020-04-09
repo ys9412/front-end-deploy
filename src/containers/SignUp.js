@@ -8,10 +8,12 @@ export default function SignUp(props) {
   const [password, setPassword] = useState("");
 
   function validateForm() {
+    /* Checks that email and password are not empty */
     return email.length > 0 && password.length > 0;
   }
 
   function handleSubmit(event) {
+    /* If user successfuly signs up, prompts the message and redirect the user to login page */
     event.preventDefault();
     alert("You are successfully signed up. Please log in to use the website");
     props.history.push("/login");
@@ -26,17 +28,20 @@ export default function SignUp(props) {
             autoFocus
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            /* save user input email to the variable email */
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
           <ControlLabel>Password</ControlLabel>
           <FormControl
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            /* save user input password to the variable password */
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
           />
         </FormGroup>
+        {/* if the user input is no valid, diable the submit button */}
         <Button block bsSize="large" disabled={!validateForm()} type="submit">
           Sign Up
         </Button>

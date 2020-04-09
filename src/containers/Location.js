@@ -7,6 +7,7 @@ import triangle from "./images/SVG/triangle.svg";
 import star from "./images/SVG/star.svg";
 
 export default function Location(props) {
+  //patient information that transferred from menu page.
   const { data } = props.location;
   const patients = [
     {
@@ -14,7 +15,7 @@ export default function Location(props) {
       name: data.firstName + " " + data.lastName,
       heartRate: 80,
       stressLevel: 10,
-      img: circle
+      img: circle,
     },
 
     {
@@ -22,17 +23,18 @@ export default function Location(props) {
       name: "William Smith",
       heartRate: 120,
       stressLevel: 50,
-      img: circle
+      img: circle,
     },
     {
       id: 3,
       name: "Jennifer Johnson",
       heartRate: 100,
       stressLevel: 30,
-      img: circle
-    }
+      img: circle,
+    },
   ];
 
+  //set the color/shape based on the stress level of the patients in the list
   for (let i = 0; i < patients.length; i++) {
     if (patients[i].stressLevel <= 10) patients[i].img = circle;
     else if (patients[i].stressLevel <= 30) patients[i].img = triangle;
@@ -43,19 +45,13 @@ export default function Location(props) {
     console.log("Clicked");
   }
 
+  //redirect the user to the "DetailedPatientInfo" page for the patient clicked, and transfer the patient data to that page.
   function handleSubmit(event) {
     event.preventDefault();
     props.history.push({
       pathname: "/detailed_patient_info",
-      data: data
+      data: data,
     });
-    /**try {
-        await Auth.signIn(email, password);
-        props.userHasAuthenticated(true);
-        props.history.push("/");
-        } catch (e) {
-        alert(e.message);
-        }**/
   }
 
   return (
@@ -70,6 +66,7 @@ export default function Location(props) {
         <img src={patients[2].img} alt="circle" />
       </div>
       <table className="grid">
+        {/* this is the note displayed above the map on the right side */}
         <tbody>
           <tr>
             <td>

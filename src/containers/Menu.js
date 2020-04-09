@@ -14,33 +14,39 @@ class Menu extends Component {
     this.handleMap = this.handleMap.bind(this);
     this.handleList = this.handleList.bind(this);
   }
+
+  //variable for list of patients
   state = {
-    patients: []
+    patients: [],
   };
 
+  //function that retrieves data from backend server using RESTful API every time user opens this page
+  //The retrieved data is saved to the variable "patients"
   componentDidMount() {
     axios
       .get(proxyurl + api)
-      .then(response => response.data)
-      .then(result => {
+      .then((response) => response.data)
+      .then((result) => {
         this.setState({ patients: result });
       })
-      .catch(error => console.log("error", error));
+      .catch((error) => console.log("error", error));
   }
 
-  handleMap = e => {
+  //function that transfers patient data to "Location" page
+  handleMap = (e) => {
     e.preventDefault();
     this.props.history.push({
       pathname: "./location",
-      data: this.state.patients
+      data: this.state.patients,
     });
   };
 
-  handleList = e => {
+  //function that transfers patient data to "PatientList" page
+  handleList = (e) => {
     e.preventDefault();
     this.props.history.push({
       pathname: "./patient_list",
-      data: this.state.patients
+      data: this.state.patients,
     });
   };
 

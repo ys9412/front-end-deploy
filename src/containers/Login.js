@@ -11,6 +11,8 @@ export default function Login(props) {
     return email.length > 0 && password.length > 0;
   }
 
+  //validate login information. If the login information is not valid, prompt error message.
+  //Dante said we just need one generic login id&pw for now, so I just set it to id: "test@gmail.com" and pw: 0000
   function handleSubmit(event) {
     event.preventDefault();
     if (email === "test@gmail.com" && password === "0000")
@@ -35,14 +37,14 @@ export default function Login(props) {
             autoFocus
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
           <ControlLabel>Password</ControlLabel>
           <FormControl
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
           />
         </FormGroup>

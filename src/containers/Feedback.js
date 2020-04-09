@@ -10,6 +10,8 @@ export default function Feedback(props) {
     return feedback.length > 0;
   }
 
+  //After user fills out feedback, prompt the message and redirect the user to menu page.
+  //Need to work on saving feedback to database.
   function handleSubmit(event) {
     event.preventDefault();
     if (feedback === undefined || feedback.length === 0)
@@ -17,28 +19,12 @@ export default function Feedback(props) {
     else {
       alert("Your feedback is submitted successfully. Thank you.");
       props.history.push("/menu");
-      /**try {
-      await Auth.signIn(email, password);
-      props.userHasAuthenticated(true);
-      props.history.push("/");
-    } catch (e) {
-      alert(e.message);
-    }**/
     }
   }
 
   return (
     <div className="Feedback">
       <form onSubmit={handleSubmit}>
-        {/* <FormGroup controlId="content" bsSize="large">
-          <ControlLabel className="title">Describe feedback.</ControlLabel>
-          <textarea
-            className="input"
-            type="content"
-            value={feedback}
-            onChange={e => setFeedback(e.target.value)}
-          />
-        </FormGroup> */}
         <table className="tableInput">
           <tbody>
             <tr>
@@ -50,7 +36,7 @@ export default function Feedback(props) {
                   className="input"
                   type="content"
                   value={feedback}
-                  onChange={e => setFeedback(e.target.value)}
+                  onChange={(e) => setFeedback(e.target.value)}
                 ></textarea>
               </td>
             </tr>

@@ -9,6 +9,8 @@ export default function AddPatient(props) {
   const [day, setDay] = useState();
   const [year, setYear] = useState();
 
+  //validate input information. If user input is not valid, prompt error message.
+  //Otherwise, prompt success message and redirect the user to menu page.
   function handleSubmit(event) {
     event.preventDefault();
     const errors = [];
@@ -46,13 +48,6 @@ export default function AddPatient(props) {
       );
       props.history.push("/menu");
     }
-    /**try {
-      await Auth.signIn(email, password);
-      props.userHasAuthenticated(true);
-      props.history.push("/");
-    } catch (e) {
-      alert(e.message);
-    }**/
   }
 
   return (
@@ -73,14 +68,14 @@ export default function AddPatient(props) {
               <input
                 type="text"
                 className="longInput"
-                onChange={e => setFirst(e.target.value)}
+                onChange={(e) => setFirst(e.target.value)}
               />
             </td>
             <td colspan="3">
               <input
                 type="text"
                 className="longInput"
-                onChange={e => setLast(e.target.value)}
+                onChange={(e) => setLast(e.target.value)}
               />
             </td>
           </tr>
@@ -92,11 +87,12 @@ export default function AddPatient(props) {
           </tr>
           <tr>
             <td colspan="6">
+              {/* I have trouble saving sex input, so need to work on that. */}
               <select value={sex}>
-                <option value="Female" onChange={e => setSex(e.target.value)}>
+                <option value="Female" onChange={(e) => setSex(e.target.value)}>
                   Female
                 </option>
-                <option value="Male" onChange={e => setSex(e.target.value)}>
+                <option value="Male" onChange={(e) => setSex(e.target.value)}>
                   Male
                 </option>
               </select>
@@ -114,7 +110,7 @@ export default function AddPatient(props) {
                 type="text"
                 placeholder="(1-12)"
                 className="dob"
-                onChange={e => setMonth(e.target.value)}
+                onChange={(e) => setMonth(e.target.value)}
               />
             </td>
             <td colspan="2">
@@ -123,7 +119,7 @@ export default function AddPatient(props) {
                 type="text"
                 placeholder="(1-31)"
                 className="dob"
-                onChange={e => setDay(e.target.value)}
+                onChange={(e) => setDay(e.target.value)}
               />
             </td>
             <td colspan="2">
@@ -132,7 +128,7 @@ export default function AddPatient(props) {
                 type="text"
                 placeholder="(1900-2020)"
                 className="dob"
-                onChange={e => setYear(e.target.value)}
+                onChange={(e) => setYear(e.target.value)}
               />
             </td>
           </tr>

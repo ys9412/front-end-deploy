@@ -7,6 +7,8 @@ import circle from "./images/circle.svg";
 
 export default function DetailedPatientInfo(props) {
   const { data } = props.location;
+
+  //graph format for heart rate and stress level
   const state = {
     labels: [
       "0 (min)",
@@ -25,7 +27,7 @@ export default function DetailedPatientInfo(props) {
       65,
       70,
       75,
-      80
+      80,
     ],
     datasets: [
       {
@@ -33,18 +35,19 @@ export default function DetailedPatientInfo(props) {
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 1,
-        data: [83, 90, 89, 95, 103, 107]
+        data: [83, 90, 89, 95, 103, 107],
       },
       {
         label: "Stress level(sl)",
         backgroundColor: "rgba(255, 246, 143, 1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 1,
-        data: [42, 58, 53, 70, 82, 88]
-      }
-    ]
+        data: [42, 58, 53, 70, 82, 88],
+      },
+    ],
   };
 
+  //graph format for waiting time
   const room = {
     labels: [
       "Waiting",
@@ -56,7 +59,7 @@ export default function DetailedPatientInfo(props) {
       "LA1",
       "LA2",
       "LA3",
-      "LA4"
+      "LA4",
     ],
     datasets: [
       {
@@ -64,9 +67,9 @@ export default function DetailedPatientInfo(props) {
         backgroundColor: "rgba(190, 144, 212,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 1,
-        data: [12, 10, 6.5, 3, 0, 7]
-      }
-    ]
+        data: [12, 10, 6.5, 3, 0, 7],
+      },
+    ],
   };
 
   function handleSubmit(event) {
@@ -95,12 +98,12 @@ export default function DetailedPatientInfo(props) {
           title: {
             display: true,
             text: "Heart Rate & Stress Level",
-            fontSize: 20
+            fontSize: 20,
           },
           legend: {
             display: true,
-            position: "bottom"
-          }
+            position: "bottom",
+          },
         }}
       />
       <p className="break"></p>
@@ -113,12 +116,12 @@ export default function DetailedPatientInfo(props) {
           title: {
             display: true,
             text: "Time Spent at Each Room",
-            fontSize: 20
+            fontSize: 20,
           },
           legend: {
             display: true,
-            position: "bottom"
-          }
+            position: "bottom",
+          },
         }}
       />
     </div>

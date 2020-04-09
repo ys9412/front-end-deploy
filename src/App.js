@@ -7,9 +7,12 @@ import "./App.css";
 
 function App(props) {
   return (
+    /* The content on the App files applies to all pages of the webste */
     <div className="App container">
+      {/* Website Header */}
       <p className="bigHeading">UCI Medical Center</p>
       <p className="smallHeading">Radiology Oncology</p>
+      {/* Navigation Bar */}
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>

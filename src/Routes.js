@@ -13,6 +13,7 @@ import Feedback from "./containers/Feedback";
 
 export default function Routes() {
   return (
+    /* Set up paths for pages */
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
