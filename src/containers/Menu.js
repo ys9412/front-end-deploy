@@ -22,20 +22,20 @@ class Menu extends Component {
 
   //function that retrieves data from backend server using RESTful API every time user opens this page
   //The retrieved data is saved to the variable "patients"
-  componentDidMount() {
-    // proxyurl = window.$proxyurl;
-    // api = window.$api;
-    axios
-      .get(proxyurl + api)
-      .then((response) => response.data)
-      .then((result) => {
-        this.setState({ patients: result });
-        //window.$patients = this.state.patients;
-        console.log("testlog" + this.state.patients.pid);
-        // console.log("testlog1" + window.$patients);
-      })
-      .catch((error) => console.log("error", error));
-  }
+  // componentDidMount() {
+  //   // proxyurl = window.$proxyurl;
+  //   // api = window.$api;
+  //   axios
+  //     .get(proxyurl + api)
+  //     .then((response) => response.data)
+  //     .then((result) => {
+  //       this.setState({ patients: result });
+  //       //window.$patients = this.state.patients;
+  //       console.log("testlog" + this.state.patients.pid);
+  //       // console.log("testlog1" + window.$patients);
+  //     })
+  //     .catch((error) => console.log("error", error));
+  // }
 
   //function that transfers patient data to "Location" page
   handleMap = (e) => {
@@ -62,14 +62,14 @@ class Menu extends Component {
           <tbody>
             <tr>
               <td>
-                <a href="" onClick={this.handleMap}>
-                  {/*<a href="./location">*/}
+                {/* <a href="" onClick={this.handleMap}> */}
+                <a href="./location">
                   <img className="left" src={location} alt="Location logo" />
                 </a>
               </td>
               <td>
-                <a href="" onClick={this.handleList}>
-                  {/*<a href="./patient_list">*/}
+                {/* <a href="" onClick={this.handleList}> */}
+                <a href="./patient_list">
                   <img className="right" src={lookup} alt="Lookup logo" />
                 </a>
               </td>
