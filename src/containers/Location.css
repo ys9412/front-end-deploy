@@ -2,26 +2,35 @@
   float: right;
   top: 30%;
   right: 10%;
-  width: 15%;
+  width: 17%;
   background-color: hsla(231, 87%, 76%, 0.404);
 }
 
 .panel img {
   margin-left: 3%;
   margin-right: 4%;
-  width: 1.5%;
+  width: 2%;
   min-width: 0.8em;
-  height: 1.5%;
+  height: 2%;
   min-height: 0.8em;
 }
 
 .panelHeader {
+  margin-top: 10%;
+
   font-weight: bold;
 }
 
 .panelBody {
+  margin-top: 10%;
   background-color: white;
   cursor: pointer;
+}
+
+.panelBody p,
+img {
+  margin-top: 7%;
+  margin-bottom: 7%;
 }
 
 .header {
@@ -31,7 +40,7 @@
 
 .dot {
   position: absolute;
-  top: 70%;
+  top: 78%;
   bottom: 10%;
   right: 10%;
   left: 50%;
@@ -48,7 +57,7 @@
 
 .map {
   float: left;
-  width: 85%;
+  width: 83%;
   height: 85%;
   /* margin-left: 5%;
   margin-right: 5%; */
