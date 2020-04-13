@@ -6,6 +6,16 @@ import green from "./images/SVG/location_green.svg";
 import yellow from "./images/SVG/location_yellow.svg";
 import red from "./images/SVG/location_red.svg";
 import { render } from "react-dom";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardFooter,
+  MDBCardGroup,
+  MDBContainer,
+} from "mdbreact";
+
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
 
@@ -13,12 +23,15 @@ class Location extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    //this.openPanel = this.openPanel.bind(this);
   }
 
   //variable for list of patients
   state = {
     patients: [],
     patientsList: [],
+    currentId: "",
+    currentName: "test",
   };
 
   //function that retrieves data from backend server using RESTful API every time user opens this page
@@ -102,6 +115,17 @@ class Location extends Component {
     });
   };
 
+  openPanel = (param) => (e) => {
+    e.preventDefault();
+    this.setState({ currentId: param });
+    for (let i = 0; i < this.state.patientsList.length; i++) {
+      if (this.state.patientsList[i].id === param)
+        this.setState({
+          currentName: this.state.patientsList[i].name,
+        });
+    }
+  };
+
   render() {
     return (
       <div className="Location">
@@ -111,7 +135,7 @@ class Location extends Component {
             <div
               key={patient.id}
               className="patientLocation"
-              onClick={this.handleSubmit(patient.id)}
+              onClick={this.openPanel(patient.id)}
             >
               <p>
                 {patient.name}
@@ -155,6 +179,25 @@ class Location extends Component {
           </tbody>
         </table>
         <img src={map} alt="Map" className="map" />
+        <MDBContainer className="panel">
+          <MDBCardGroup>
+            <MDBCard>
+              <MDBCardBody>
+                <MDBCardTitle tag="h5">Panel title</MDBCardTitle>
+                <ul className="bullet">
+                  <li> pid: {this.state.currentId}</li>
+                  <li> Name: {this.state.currentName}</li>
+                </ul>
+                <MDBCardText onClick={this.handleSubmit(this.state.currentId)}>
+                  Patient Info
+                </MDBCardText>
+              </MDBCardBody>
+              <MDBCardFooter small muted>
+                test
+              </MDBCardFooter>
+            </MDBCard>
+          </MDBCardGroup>
+        </MDBContainer>
       </div>
     );
   }

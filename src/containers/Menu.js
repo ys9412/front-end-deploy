@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "./Menu.css";
 import location from "./images/SVG/location.svg";
 import lookup from "./images/SVG/lookup.svg";
 import add from "./images/SVG/add.svg";
 import feedback from "./images/SVG/feedback.svg";
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
 
 class Menu extends Component {
   constructor(props) {
@@ -14,28 +11,6 @@ class Menu extends Component {
     this.handleMap = this.handleMap.bind(this);
     this.handleList = this.handleList.bind(this);
   }
-
-  //variable for list of patients
-  state = {
-    patients: [],
-  };
-
-  //function that retrieves data from backend server using RESTful API every time user opens this page
-  //The retrieved data is saved to the variable "patients"
-  // componentDidMount() {
-  //   // proxyurl = window.$proxyurl;
-  //   // api = window.$api;
-  //   axios
-  //     .get(proxyurl + api)
-  //     .then((response) => response.data)
-  //     .then((result) => {
-  //       this.setState({ patients: result });
-  //       //window.$patients = this.state.patients;
-  //       console.log("testlog" + this.state.patients.pid);
-  //       // console.log("testlog1" + window.$patients);
-  //     })
-  //     .catch((error) => console.log("error", error));
-  // }
 
   //function that transfers patient data to "Location" page
   handleMap = (e) => {

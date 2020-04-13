@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./DetailedPatientInfo.css";
 import { Line, Bar } from "react-chartjs-2";
 import axios from "axios";
