@@ -10,12 +10,6 @@ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
 
 class Location extends Component {
-  //patient information that transferred from menu page.
-  //const data = window.$patients;
-  // const data = window.$patients;
-  // console.log("test" + window.$patients);
-  // console.log("location test" + data);
-
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -99,11 +93,11 @@ class Location extends Component {
       .catch((error) => console.log("error", error));
   }
 
-  //redirect the user to the "DetailedPatientInfo" page for the patient clicked, and transfer the patient data to that page.
-  handleSubmit = (e) => {
+  //redirect the user to the "DetailedPatientInfo" page for the patient clicked, and pass patient id as parameter in url.
+  handleSubmit = (param) => (e) => {
     e.preventDefault();
     this.props.history.push({
-      pathname: "/detailed_patient_info",
+      pathname: "/detailed_patient_info/" + param,
       data: this.state.patients,
     });
   };
@@ -112,12 +106,18 @@ class Location extends Component {
     return (
       <div className="Location">
         <h1 className="header">Patient Location</h1>
-        <div className="dot" onClick={this.handleSubmit}>
+        <div className="dot">
           {this.state.patientsList.map((patient) => (
-            <p key={patient.id}>
-              {patient.name}
-              <img src={patient.img} />
-            </p>
+            <div
+              key={patient.id}
+              className="patientLocation"
+              onClick={this.handleSubmit(patient.id)}
+            >
+              <p>
+                {patient.name}
+                <img src={patient.img} />
+              </p>
+            </div>
           ))}
           {/* <img src={this.state.patientsList[0].img} alt="circle" />
           <p>{this.state.patientsList[1].name}</p>

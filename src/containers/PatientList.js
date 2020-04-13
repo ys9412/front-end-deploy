@@ -30,11 +30,11 @@ class PatientList extends Component {
       .catch((error) => console.log("error", error));
   }
 
-  //function that transfers patient data to "DetailedPatientInfo" page
+  //redirect the user to the "DetailedPatientInfo" page for the patient clicked, and pass patient id as parameter in url.
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.history.push({
-      pathname: "/detailed_patient_info",
+      pathname: "/detailed_patient_info/" + this.state.patients.pid,
       data: this.state.patients,
     });
   };

@@ -21,8 +21,7 @@ export default function Routes() {
       <Route path="/menu" exact component={Menu} />
       <Route path="/location" exact component={Location} />
       <Route
-        path="/detailed_patient_info"
-        exact
+        path="/detailed_patient_info/:patientId"
         component={DetaildPatientInfo}
       />
       <Route path="/patient_list" exact component={PatientList} />
