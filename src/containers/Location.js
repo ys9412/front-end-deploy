@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Location.css";
-import map from "./images/map.jpg";
+import map from "./images/map_clear.jpeg";
 import green from "./images/SVG/location_green.svg";
 import yellow from "./images/SVG/location_yellow.svg";
 import red from "./images/SVG/location_red.svg";
-import { render } from "react-dom";
+import location_black from "./images/SVG/location_black.svg";
+import info_black from "./images/SVG/info_black.svg";
+import heart_red from "./images/SVG/heart_red.svg";
+
 import {
   MDBCard,
   MDBCardBody,
-  MDBCardTitle,
   MDBCardText,
-  MDBCardFooter,
-  MDBCardGroup,
+  MDBCardHeader,
   MDBContainer,
 } from "mdbreact";
 
@@ -31,7 +32,7 @@ class Location extends Component {
     patients: [],
     patientsList: [],
     currentId: "",
-    currentName: "test",
+    currentName: "",
   };
 
   //function that retrieves data from backend server using RESTful API every time user opens this page
@@ -137,10 +138,8 @@ class Location extends Component {
               className="patientLocation"
               onClick={this.openPanel(patient.id)}
             >
-              <p>
-                {patient.name}
-                <img src={patient.img} />
-              </p>
+              <p>{patient.name}</p>
+              <img src={patient.img} />
             </div>
           ))}
           {/* <img src={this.state.patientsList[0].img} alt="circle" />
@@ -180,23 +179,26 @@ class Location extends Component {
         </table>
         <img src={map} alt="Map" className="map" />
         <MDBContainer className="panel">
-          <MDBCardGroup>
-            <MDBCard>
-              <MDBCardBody>
-                <MDBCardTitle tag="h5">Panel title</MDBCardTitle>
-                <ul className="bullet">
-                  <li> pid: {this.state.currentId}</li>
-                  <li> Name: {this.state.currentName}</li>
-                </ul>
-                <MDBCardText onClick={this.handleSubmit(this.state.currentId)}>
-                  Patient Info
-                </MDBCardText>
-              </MDBCardBody>
-              <MDBCardFooter small muted>
-                test
-              </MDBCardFooter>
-            </MDBCard>
-          </MDBCardGroup>
+          <MDBCard>
+            <MDBCardHeader className="panelHeader">
+              <p> Patient Id: {this.state.currentId}</p>
+              <p> Name: {this.state.currentName}</p>
+            </MDBCardHeader>
+            <MDBCardBody className="panelBody">
+              <MDBCardText>
+                <img src={heart_red} />
+                Heart Rate: 100 bpm
+              </MDBCardText>
+              <MDBCardText onClick={this.handleSubmit(this.state.currentId)}>
+                <img src={info_black} />
+                View Patient Info
+              </MDBCardText>
+              <MDBCardText>
+                <img src={location_black} />
+                View Location Details
+              </MDBCardText>
+            </MDBCardBody>
+          </MDBCard>
         </MDBContainer>
       </div>
     );

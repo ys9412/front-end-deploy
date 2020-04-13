@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { RadioGroup, RadioButton } from "react-radio-buttons";
 import "./AddPatient.css";
 export default function AddPatient(props) {
   const [sex, setSex] = useState();

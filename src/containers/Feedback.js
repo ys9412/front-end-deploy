@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-//import { Auth } from "aws-amplify";
+import { Button } from "react-bootstrap";
+//import { Auth }, FormGroup, FormControl, ControlLabel  from "aws-amplify";
 import "./Feedback.css";
 
 export default function Feedback(props) {

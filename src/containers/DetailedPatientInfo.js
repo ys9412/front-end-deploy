@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import "./DetailedPatientInfo.css";
-import { Line, Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import axios from "axios";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
@@ -43,16 +43,17 @@ class DetailedPatientInfo extends Component {
 
   render() {
     //if the patientId in patientsList matches with the patientId parameter from url, save the info in patient variable.
-    for (let i = 0; i < 1; i++) {
+    {
       if (
-        this.props.match.params.patientId != undefined &&
-        this.state.patients.pid != undefined
+        this.props.match.params.patientId !== undefined &&
+        this.state.patients.pid !== undefined
       ) {
         if (
           this.state.patients.pid.toString() ===
           this.props.match.params.patientId.toString()
         ) {
           console.log("pid match");
+          //this.setState({ firstName: this.state.patients.firstName });
           this.state.patient.firstName = this.state.patients.firstName;
           this.state.patient.lastName = this.state.patients.lastName;
           this.state.patient.dobmonth = this.state.patients.dobmonth;

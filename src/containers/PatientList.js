@@ -1,9 +1,7 @@
 import React from "react";
 import { Component } from "react";
-import { useState } from "react";
 import axios from "axios";
 import "./PatientList.css";
-import { render } from "@testing-library/react";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
 
