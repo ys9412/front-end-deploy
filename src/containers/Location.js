@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./Location.css";
 import map from "./images/map.jpg";
-import circle from "./images/circle.svg";
-import triangle from "./images/SVG/triangle.svg";
-import star from "./images/SVG/star.svg";
+import green from "./images/SVG/location_green.svg";
+import yellow from "./images/SVG/location_yellow.svg";
+import red from "./images/SVG/location_red.svg";
 import { render } from "react-dom";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
@@ -41,7 +41,7 @@ class Location extends Component {
                 this.state.patients.lastName,
               heartRate: 80,
               stressLevel: 10,
-              img: circle,
+              img: green,
             },
 
             {
@@ -49,14 +49,14 @@ class Location extends Component {
               name: "William Smith",
               heartRate: 120,
               stressLevel: 50,
-              img: circle,
+              img: green,
             },
             {
               id: 3,
               name: "Jennifer Johnson",
               heartRate: 100,
               stressLevel: 30,
-              img: circle,
+              img: green,
             },
           ],
         });
@@ -67,7 +67,7 @@ class Location extends Component {
           if (this.state.patientsList[i].stressLevel <= 10)
             this.setState((state) => {
               const patientsList = state.patientsList;
-              patientsList[i].img = circle;
+              patientsList[i].img = green;
               return {
                 patientsList,
               };
@@ -75,7 +75,7 @@ class Location extends Component {
           else if (this.state.patientsList[i].stressLevel <= 30)
             this.setState((state) => {
               const patientsList = state.patientsList;
-              patientsList[i].img = triangle;
+              patientsList[i].img = yellow;
               return {
                 patientsList,
               };
@@ -83,7 +83,7 @@ class Location extends Component {
           else if (this.state.patientsList[i].stressLevel <= 50)
             this.setState((state) => {
               const patientsList = state.patientsList;
-              patientsList[i].img = star;
+              patientsList[i].img = red;
               return {
                 patientsList,
               };
@@ -130,7 +130,7 @@ class Location extends Component {
           <tbody>
             <tr>
               <td>
-                <img src={circle} alt="circle" className="note" />
+                <img src={green} alt="circle" className="note" />
               </td>
               <td>
                 <p className="txt">Low stress level</p>
@@ -138,7 +138,7 @@ class Location extends Component {
             </tr>
             <tr>
               <td>
-                <img src={triangle} alt="triangle" className="note" />
+                <img src={yellow} alt="triangle" className="note" />
               </td>
               <td>
                 <p className="txt">Medium stress level</p>
@@ -146,7 +146,7 @@ class Location extends Component {
             </tr>
             <tr>
               <td>
-                <img src={star} alt="star" className="note" />
+                <img src={red} alt="star" className="note" />
               </td>
               <td>
                 <p className="txt">High stress level</p>
