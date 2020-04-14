@@ -19,7 +19,6 @@ import {
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
-
 class Location extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +32,8 @@ class Location extends Component {
     patientsList: [],
     currentId: "",
     currentName: "",
+    showPanel: false,
+    panel: "",
   };
 
   //function that retrieves data from backend server using RESTful API every time user opens this page
@@ -118,6 +119,7 @@ class Location extends Component {
 
   openPanel = (param) => (e) => {
     e.preventDefault();
+    this.setState({ showPanel: true });
     this.setState({ currentId: param });
     for (let i = 0; i < this.state.patientsList.length; i++) {
       if (this.state.patientsList[i].id === param)
@@ -125,6 +127,35 @@ class Location extends Component {
           currentName: this.state.patientsList[i].name,
         });
     }
+    // if (this.state.showPanel) {
+    //   console.log("success");
+    //   this.setState({
+    //     panel: (
+    //       <MDBContainer className="panel">
+    //         <MDBCard>
+    //           <MDBCardHeader className="panelHeader">
+    //             <p> Patient Id: {this.state.currentId}</p>
+    //             <p> Name: {this.state.currentName}</p>
+    //           </MDBCardHeader>
+    //           <MDBCardBody className="panelBody">
+    //             <MDBCardText>
+    //               <img src={heart_red} />
+    //               Heart Rate: 100 bpm
+    //             </MDBCardText>
+    //             <MDBCardText onClick={this.handleSubmit(this.state.currentId)}>
+    //               <img src={info_black} />
+    //               View Patient Info
+    //             </MDBCardText>
+    //             <MDBCardText>
+    //               <img src={location_black} />
+    //               View Location Details
+    //             </MDBCardText>
+    //           </MDBCardBody>
+    //         </MDBCard>
+    //       </MDBContainer>
+    //     ),
+    //   });
+    // }
   };
 
   render() {
@@ -178,28 +209,35 @@ class Location extends Component {
           </tbody>
         </table>
         <img src={map} alt="Map" className="map" />
-        <MDBContainer className="panel">
-          <MDBCard>
-            <MDBCardHeader className="panelHeader">
-              <p> Patient Id: {this.state.currentId}</p>
-              <p> Name: {this.state.currentName}</p>
-            </MDBCardHeader>
-            <MDBCardBody className="panelBody">
-              <MDBCardText>
-                <img src={heart_red} />
-                Heart Rate: 100 bpm
-              </MDBCardText>
-              <MDBCardText onClick={this.handleSubmit(this.state.currentId)}>
-                <img src={info_black} />
-                View Patient Info
-              </MDBCardText>
-              <MDBCardText>
-                <img src={location_black} />
-                View Location Details
-              </MDBCardText>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBContainer>
+        {this.state.showPanel ? (
+          <MDBContainer className="panel">
+            <MDBCard>
+              <MDBCardHeader className="panelHeader">
+                <p> Patient Id: {this.state.currentId}</p>
+                <p> Name: {this.state.currentName}</p>
+              </MDBCardHeader>
+              <MDBCardBody className="panelBody">
+                <MDBCardText>
+                  <img src={heart_red} />
+                  Heart Rate: 100 bpm
+                </MDBCardText>
+                <MDBCardText
+                  className="pInfo"
+                  onClick={this.handleSubmit(this.state.currentId)}
+                >
+                  <img src={info_black} />
+                  View Patient Info
+                </MDBCardText>
+                <MDBCardText className="pLocation">
+                  <img src={location_black} />
+                  View Location Details
+                </MDBCardText>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBContainer>
+        ) : (
+          <p></p>
+        )}
       </div>
     );
   }

@@ -4,6 +4,7 @@
   right: 10%;
   width: 17%;
   background-color: hsla(231, 87%, 76%, 0.404);
+  /* display: none; */
 }
 
 .panel img {
@@ -53,6 +54,15 @@ img {
   color: rgb(22, 18, 224);
   text-shadow: 1px 1px 1px white;
   cursor: pointer;
+}
+
+.dot p:hover {
+  color: green;
+}
+
+.pInfo:hover,
+.pLocation:hover {
+  color: blue;
 }
 
 .map {
