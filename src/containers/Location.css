@@ -1,10 +1,10 @@
 .panel {
-  float: right;
   top: 30%;
   right: 10%;
   width: 17%;
+  float: left;
   background-color: hsla(231, 87%, 76%, 0.404);
-  /* display: none; */
+  min-width: 9em;
 }
 
 .panel img {
