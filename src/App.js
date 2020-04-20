@@ -40,7 +40,8 @@ class App extends Component {
   render() {
     return (
       /* The content on the App files applies to all pages of the webste */
-      <div className="App Container" style={{ minWidth: 500 }}>
+      <div className="App container" style={{ minWidth: 500 }}>
+        {/* Website Header */}
         <p className="bigHeading">UCI Medical Center</p>
         <p className="smallHeading">Radiology Oncology</p>
         {/* Navigation Bar */}
