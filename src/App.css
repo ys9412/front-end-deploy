@@ -4,6 +4,11 @@
 
 .App .navbar-brand {
   font-weight: bold;
+  list-style-type: none;
+}
+
+.container {
+  min-width: 500px;
 }
 
 .bigHeading {
@@ -20,4 +25,23 @@
   font-weight: bolder;
   margin-bottom: 2%;
   color: rgb(33, 72, 155);
+}
+
+.notification_image {
+  width: 17%;
+  margin-left: 5%;
+  margin-top: 0;
+  float: left;
+}
+
+#dropdown-no-caret {
+  text-decoration: none;
+}
+
+.newAlert {
+  background-color: red;
+}
+
+.dropdown-menu {
+  margin-top: 20%;
 }
