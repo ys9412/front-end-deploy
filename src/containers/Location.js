@@ -18,7 +18,7 @@ import {
 } from "mdbreact";
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
+const api = "https://lachesisfitbit.com/api/getbyid=1";
 class Location extends Component {
   constructor(props) {
     super(props);

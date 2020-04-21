@@ -3,7 +3,7 @@ import { Component } from "react";
 import axios from "axios";
 import "./PatientList.css";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const api = "http://ec2-52-91-80-144.compute-1.amazonaws.com/api/getbyid=1";
+const api = "https://lachesisfitbit.com/api/getbyid=1";
 
 class PatientList extends Component {
   constructor(props) {

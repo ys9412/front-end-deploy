@@ -23,9 +23,9 @@ class App extends Component {
   state = {
     patientsList: [],
     alertMessageList: [
-      { id: 1, content: "Message 1" },
-      { id: 2, content: "Message 2" },
-      { id: 3, content: "Message 3" },
+      { id: 1, content: "Name: , Waiting time: , Stress Level: " },
+      { id: 2, content: "Name: , Waiting time: , Stress Level: " },
+      { id: 3, content: "Name: , Waiting time: , Stress Level: " },
     ],
     showAlert: false,
     showOptions: false,
@@ -71,8 +71,12 @@ class App extends Component {
                           {message.content}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                          <p>remove alert</p>
-                          <p>patient info</p>
+                          <a href="">
+                            <p>remove alert</p>
+                          </a>
+                          <a href="">
+                            <p>patient info</p>
+                          </a>
                         </Dropdown.Menu>
                       </Dropdown>
                       {/* {this.state.showOptions ? (

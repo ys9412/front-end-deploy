@@ -40,4 +40,9 @@
 
 .dropdown-menu {
   margin-top: 20%;
+  background-color: rgba(110, 117, 216, 0.623);
 }
+
+/* #dropdown-basic {
+  background-color: rgba(110, 117, 216, 0.623);
+} */
