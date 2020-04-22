@@ -30,6 +30,11 @@
   float: left;
 }
 
+.notification_bullet {
+  width: 5%;
+  margin-right: 5px;
+}
+
 #dropdown-no-caret {
   text-decoration: none;
 }
@@ -45,15 +50,22 @@
   box-shadow: none;
 }
 
-#dropdownMessage,
-#dropdownOption {
+.dropdownMessage {
+  border-radius: 4px;
   background-color: rgba(125, 134, 216, 0.781);
-  text-decoration: none;
   font-weight: bold;
+  text-align: left;
+  width: 270px;
 }
 
-/* #dropdownMessage{
-} */
+.messageLength {
+  width: 230px;
+  color: rgba(0, 0, 0, 0.63);
+}
+
+#dropdownOption {
+  background-color: rgba(125, 134, 216, 0.781);
+}
 
 #dropdownOption a {
   text-decoration: none;

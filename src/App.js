@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import Routes from "./Routes";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   Nav,
   Navbar,
@@ -13,28 +13,37 @@ import { LinkContainer } from "react-router-bootstrap";
 //import Dropdown from "react-dropdown";
 import "./App.css";
 import notification from "./containers/images/SVG/notification.svg";
+import Bullet from "./containers/images/SVG/notification_bullet.svg";
+
 // import Dropdown from "react-bootstrap/Dropdown";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.goToPatient = this.goToPatient.bind(this);
   }
 
   state = {
     patientsList: [],
     alertMessageList: [
-      { id: 1, name: "Viktor Jin", time: "40 min ", stressLevel: "80 sl" },
-      { id: 2, name: "William Smith", time: "35 min", stressLevel: "78 sl" },
-      { id: 3, name: "Jennifer Johnson", time: "33 min", stressLevel: "67 sl" },
+      { pid: 1, name: "Viktor Jin", time: "40 min ", stressLevel: "80 sl" },
+      { pid: 2, name: "William Smith", time: "35 min", stressLevel: "78 sl" },
+      {
+        pid: 3,
+        name: "Jennifer Johnson",
+        time: "33 min",
+        stressLevel: "67 sl",
+      },
     ],
     showAlert: false,
     showOptions: false,
   };
 
-  openOptions = (e) => {
-    console.log("working");
-    // this.setState({ showOptions: true });
-    this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
+  goToPatient = (param) => (e) => {
+    e.preventDefault();
+    this.props.history.push({
+      pathname: "/detailed_patient_info/" + param,
+    });
   };
 
   render() {
@@ -66,52 +75,48 @@ class App extends Component {
                   }}
                 >
                   {this.state.alertMessageList.map((message) => (
-                    <div
-                      key={message.id}
-                      className="messageTest"
-                      onClick={this.openOptions}
-                    >
-                      <Dropdown drop="right" id="dropdownMessage">
-                        <Dropdown.Toggle style={{ width: 300 }}>
-                          {message.name +
-                            ", " +
-                            message.time +
-                            ", " +
-                            message.stressLevel}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu id="dropdownOption">
-                          <a href="">
-                            <p>Remove alert &nbsp;&nbsp;&nbsp; x </p>
-                          </a>
-                          <a href="">
-                            <p>See patient info</p>
-                          </a>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      {/* {this.state.showOptions ? (
-                        <ul className="options">
-                          <button>remove alert</button>
-                          <button>patient info</button>
-                        </ul>
-                      ) : (
-                        <p></p>
-                      )} */}
+                    <div key={message.pid} className="messageTest">
+                      {" "}
+                      <table className="dropdownMessage">
+                        <tbody>
+                          <tr>
+                            <td className="messageLength">
+                              <img
+                                src={Bullet}
+                                className="notification_bullet"
+                              />
+
+                              {message.name +
+                                ", " +
+                                message.time +
+                                ", " +
+                                message.stressLevel}
+                            </td>
+                            <td>
+                              <Dropdown drop="right" id="message">
+                                <Dropdown.Toggle
+                                  style={{ float: "right" }}
+                                ></Dropdown.Toggle>
+
+                                <Dropdown.Menu id="dropdownOption">
+                                  <a href="">
+                                    <p>Remove alert &nbsp;&nbsp;&nbsp; x </p>
+                                  </a>
+                                  <a
+                                    href=""
+                                    onClick={this.goToPatient(message.pid)}
+                                  >
+                                    <p>See patient info</p>
+                                  </a>
+                                </Dropdown.Menu>
+                              </Dropdown>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   ))}
                 </div>
-                {/* <ul onClick={this.openOptions}>
-                  test
-                  {this.state.showOptions ? (
-                    <ul className="options">
-                      <li>1</li>
-                      <li>2</li>
-                    </ul>
-                  ) : (
-                    <p></p>
-                  )}
-                </ul>
-                <p className="nestedNav">onMouseOver</p>
-                <p className="nestedNav">test</p> */}
               </NavDropdown>
               <Badge variant="secondary" className="newAlert">
                 {this.state.alertMessageList.length}
@@ -136,4 +141,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
