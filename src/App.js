@@ -23,9 +23,9 @@ class App extends Component {
   state = {
     patientsList: [],
     alertMessageList: [
-      { id: 1, content: "Name: , Waiting time: , Stress Level: " },
-      { id: 2, content: "Name: , Waiting time: , Stress Level: " },
-      { id: 3, content: "Name: , Waiting time: , Stress Level: " },
+      { id: 1, name: "Viktor Jin", time: "40 min ", stressLevel: "80 sl" },
+      { id: 2, name: "William Smith", time: "35 min", stressLevel: "78 sl" },
+      { id: 3, name: "Jennifer Johnson", time: "33 min", stressLevel: "67 sl" },
     ],
     showAlert: false,
     showOptions: false,
@@ -59,23 +59,32 @@ class App extends Component {
                 noCaret
                 id="dropdown-no-caret"
               >
-                <div className="test1">
+                <div
+                  className="test1"
+                  style={{
+                    marginTop: "20px",
+                  }}
+                >
                   {this.state.alertMessageList.map((message) => (
                     <div
                       key={message.id}
                       className="messageTest"
                       onClick={this.openOptions}
                     >
-                      <Dropdown id="dropdown-basic">
-                        <Dropdown.Toggle id="dropdown-basic">
-                          {message.content}
+                      <Dropdown drop="right" id="dropdownMessage">
+                        <Dropdown.Toggle style={{ width: 300 }}>
+                          {message.name +
+                            ", " +
+                            message.time +
+                            ", " +
+                            message.stressLevel}
                         </Dropdown.Toggle>
-                        <Dropdown.Menu>
+                        <Dropdown.Menu id="dropdownOption">
                           <a href="">
-                            <p>remove alert</p>
+                            <p>Remove alert &nbsp;&nbsp;&nbsp; x </p>
                           </a>
                           <a href="">
-                            <p>patient info</p>
+                            <p>See patient info</p>
                           </a>
                         </Dropdown.Menu>
                       </Dropdown>

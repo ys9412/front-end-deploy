@@ -39,10 +39,24 @@
 }
 
 .dropdown-menu {
-  margin-top: 20%;
-  background-color: rgba(110, 117, 216, 0.623);
+  /* margin-top: 20%; */
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-/* #dropdown-basic {
-  background-color: rgba(110, 117, 216, 0.623);
+#dropdownMessage,
+#dropdownOption {
+  background-color: rgba(125, 134, 216, 0.781);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* #dropdownMessage{
 } */
+
+#dropdownOption a {
+  text-decoration: none;
+  color: rgb(13, 3, 145);
+  text-shadow: 1px 0px 1px white;
+}
