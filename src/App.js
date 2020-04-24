@@ -46,6 +46,14 @@ class App extends Component {
     });
   };
 
+  removeAlert = (param) => (e) => {
+    e.preventDefault();
+    const messages = this.state.alertMessageList.filter(
+      (message) => message.pid !== param
+    );
+    this.setState({ alertMessageList: messages });
+  };
+
   render() {
     return (
       /* The content on the App files applies to all pages of the webste */
@@ -99,7 +107,10 @@ class App extends Component {
                                 ></Dropdown.Toggle>
 
                                 <Dropdown.Menu id="dropdownOption">
-                                  <a href="">
+                                  <a
+                                    href=""
+                                    onClick={this.removeAlert(message.pid)}
+                                  >
                                     <p>Remove alert &nbsp;&nbsp;&nbsp; x </p>
                                   </a>
                                   <a
