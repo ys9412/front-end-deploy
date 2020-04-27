@@ -16,11 +16,13 @@ import notification from "./containers/images/SVG/notification.svg";
 import Bullet from "./containers/images/SVG/notification_bullet.svg";
 
 // import Dropdown from "react-bootstrap/Dropdown";
+const removed = [];
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.goToPatient = this.goToPatient.bind(this);
+    this.removeAlert = this.removeAlert.bind(this);
   }
 
   state = {
@@ -48,13 +50,16 @@ class App extends Component {
 
   removeAlert = (param) => (e) => {
     e.preventDefault();
-    const messages = this.state.alertMessageList.filter(
-      (message) => message.pid !== param
-    );
-    this.setState({ alertMessageList: messages });
+    this.setState((prevState) => ({
+      alertMessageList: prevState.alertMessageList.filter(
+        (message) => message.pid !== param
+      ),
+    }));
+    removed.push(param);
   };
 
   render() {
+    console.log("list" + removed);
     return (
       /* The content on the App files applies to all pages of the webste */
       <div className="App container" style={{ minWidth: 500 }}>

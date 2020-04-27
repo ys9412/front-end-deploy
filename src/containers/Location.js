@@ -41,6 +41,16 @@ class Location extends Component {
   componentDidMount() {
     // proxyurl = window.$proxyurl;
     // api = window.$api;
+    this.getPatients();
+    this.timer = setInterval(() => this.getPatients(), 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+
+  getPatients() {
     axios
       .get(proxyurl + api)
       .then((response) => response.data)
