@@ -51,6 +51,7 @@ class Location extends Component {
   }
 
   getPatients() {
+    console.log("test interval");
     axios
       .get(proxyurl + api)
       .then((response) => response.data)
