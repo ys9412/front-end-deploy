@@ -6,7 +6,6 @@ import axios from "axios";
 const api = "https://lachesisfitbit.com/api/uploadPatientsByJSON";
 
 export default function AddPatient(props) {
-  const [sex, setSex] = useState();
   const [first, setFirst] = useState();
   const [middle, setMiddle] = useState();
   const [last, setLast] = useState();
@@ -14,6 +13,8 @@ export default function AddPatient(props) {
   const [day, setDay] = useState();
   const [year, setYear] = useState();
   const [phoneNumber, setNumber] = useState();
+  const [sex = "Female", setSex] = useState();
+  let gender;
 
   //validate input information. If user input is not valid, prompt error message.
   //Otherwise, prompt success message and redirect the user to menu page.
@@ -25,6 +26,9 @@ export default function AddPatient(props) {
     }
     if (last === undefined || last.length === 0) {
       errors.push("Last name is required");
+    }
+    if (sex === undefined || sex.length === 0) {
+      errors.push("Sex is required");
     }
     if (month === undefined || month > 12 || month < 1 || isNaN(month)) {
       errors.push("Month is not valid");
@@ -61,6 +65,8 @@ export default function AddPatient(props) {
       props.history.push("/menu");
     }
 
+    gender = sex === "Female" ? 0 : 1;
+
     const patient = {
       mid: 3,
       dobyear: year,
@@ -71,6 +77,7 @@ export default function AddPatient(props) {
       lastName: last,
       weight: 70,
       height: 175,
+      gender: gender,
     };
     // axios.post(api, { patient }).then((res) => {
     //   console.log(res);
@@ -144,17 +151,9 @@ export default function AddPatient(props) {
             </tr>
             <tr>
               <td colSpan="6" className="inputHeight">
-                {/* I have trouble saving sex input, so need to work on that. */}
-                <select value={sex}>
-                  <option
-                    value="Female"
-                    onChange={(e) => setSex(e.target.value)}
-                  >
-                    Female
-                  </option>
-                  <option value="Male" onChange={(e) => setSex(e.target.value)}>
-                    Male
-                  </option>
+                <select value={sex} onChange={(e) => setSex(e.target.value)}>
+                  <option value="Female">Female</option>
+                  <option value="Male">Male</option>
                 </select>
               </td>
             </tr>
