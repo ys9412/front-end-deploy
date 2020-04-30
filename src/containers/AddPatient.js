@@ -4,6 +4,7 @@ import "./AddPatient.css";
 import axios from "axios";
 
 const api = "https://lachesisfitbit.com/api/uploadPatientsByJSON";
+const apiConnect = "https://lachesisfitbit.com/api/uploadConnectById";
 
 export default function AddPatient(props) {
   const [first, setFirst] = useState();
@@ -14,6 +15,12 @@ export default function AddPatient(props) {
   const [year, setYear] = useState();
   const [phoneNumber, setNumber] = useState();
   const [sex = "Female", setSex] = useState();
+  const [weight, setWeight] = useState();
+  const [height, setHeight] = useState();
+  const [fid, setFid] = useState();
+  const [start, setStart] = useState();
+  const [finish, setFinish] = useState();
+
   let gender;
 
   //validate input information. If user input is not valid, prompt error message.
@@ -39,8 +46,17 @@ export default function AddPatient(props) {
     if (year === undefined || year > 2020 || year < 1 || isNaN(year)) {
       errors.push("Year is not valid");
     }
+    if (weight === undefined || weight <= 0 || isNaN(weight)) {
+      errors.push("Weight is not valid");
+    }
+    if (height === undefined || height <= 0 || isNaN(height)) {
+      errors.push("Height is not valid");
+    }
     if (phoneNumber === undefined || phoneNumber.length === 0) {
       errors.push("Phone number is required");
+    }
+    if (fid === undefined || fid.length === 0) {
+      errors.push("Fitbit ID is required");
     }
     if (errors.length > 0) alert(errors);
     else {
@@ -54,35 +70,56 @@ export default function AddPatient(props) {
           " (" +
           sex +
           ", " +
+          weight +
+          " lbs, " +
+          height +
+          " ft, " +
           day +
           "/" +
           month +
           "/" +
           year +
+          ", " +
           phoneNumber +
+          ", " +
+          fid +
           ") is added to the system."
       );
       props.history.push("/menu");
     }
 
     gender = sex === "Female" ? 0 : 1;
-
     const patient = {
-      mid: 3,
+      mid: phoneNumber.substring(phoneNumber.length - 4),
       dobyear: year,
       dobmonth: month,
       dobday: day,
       firstName: first,
-      middleName: null,
+      middleName: middle,
       lastName: last,
-      weight: 70,
-      height: 175,
+      weight: weight,
+      height: height,
       gender: gender,
     };
-    // axios.post(api, { patient }).then((res) => {
-    //   console.log(res);
-    //   console.log(res.data);
-    // });
+
+    const date = new Date();
+    const time =
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds() +
+      ":" +
+      date.getMilliseconds();
+    console.log("time" + date);
+    const connect = {
+      fid: fid,
+      pid: 1,
+      matchId: phoneNumber.substring(phoneNumber.length - 4),
+      //get current time
+      start: date,
+      finish: finish,
+    };
 
     console.log(patient);
     const myHeaders = new Headers();
@@ -98,7 +135,33 @@ export default function AddPatient(props) {
       redirect: "follow",
     };
 
+    //send new patient data to backend
     fetch("https://lachesisfitbit.com/api/uploadPatientsByJSON", requestOptions)
+      .then((response) => {
+        response.text();
+      })
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+
+    setTime(connect);
+  }
+
+  //bind mobile ID and fitbit ID with patient
+  function setTime(connect) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify(connect);
+    console.log("content" + raw);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(apiConnect, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -122,21 +185,21 @@ export default function AddPatient(props) {
               </td>
             </tr>
             <tr>
-              <td colSpan="2" className="inputHeight">
+              <td colSpan="2">
                 <input
                   type="text"
                   className="longInput"
                   onChange={(e) => setFirst(e.target.value)}
                 />
               </td>
-              <td colSpan="2" className="inputHeight">
+              <td colSpan="2">
                 <input
                   type="text"
                   className="longInput"
                   onChange={(e) => setMiddle(e.target.value)}
                 />
               </td>
-              <td colSpan="2" className="inputHeight">
+              <td colSpan="2">
                 <input
                   type="text"
                   className="longInput"
@@ -145,16 +208,43 @@ export default function AddPatient(props) {
               </td>
             </tr>
             <tr>
-              <td colSpan="6" className="inputHeight">
+              <td colSpan="6">
                 <p>Sex:</p>
               </td>
             </tr>
+
             <tr>
-              <td colSpan="6" className="inputHeight">
+              <td colSpan="6">
                 <select value={sex} onChange={(e) => setSex(e.target.value)}>
                   <option value="Female">Female</option>
                   <option value="Male">Male</option>
                 </select>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="3">
+                <p>Weight:</p>
+              </td>
+              <td colSpan="3">
+                <p>Height:</p>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="3">
+                <input
+                  type="text"
+                  className="weight"
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+                ft/in
+              </td>
+              <td colSpan="3">
+                <input
+                  type="text"
+                  className="height"
+                  onChange={(e) => setHeight(e.target.value)}
+                />
+                lbs.
               </td>
             </tr>
             <tr>
@@ -172,7 +262,7 @@ export default function AddPatient(props) {
                   onChange={(e) => setMonth(e.target.value)}
                 />
               </td>
-              <td colSpan="2" className="inputHeight">
+              <td colSpan="2">
                 <label className="day">DD</label>
                 <input
                   type="text"
@@ -181,7 +271,7 @@ export default function AddPatient(props) {
                   onChange={(e) => setDay(e.target.value)}
                 />
               </td>
-              <td colSpan="2" className="inputHeight">
+              <td colSpan="2">
                 <label className="year">YYYY</label>
                 <input
                   type="text"
@@ -192,17 +282,27 @@ export default function AddPatient(props) {
               </td>
             </tr>
             <tr>
-              <td colSpan="6">
-                <p>Phone Number:</p>
+              <td colSpan="3">
+                <p>Cell Phone Number:</p>
+              </td>
+              <td colSpan="3">
+                <p>Fitbit Device ID:</p>
               </td>
             </tr>
             <tr>
-              <td colSpan="6" className="inputHeight">
+              <td colSpan="3">
                 <Input
                   className="phone"
                   country="US"
                   value={phoneNumber}
                   onChange={setNumber}
+                />
+              </td>
+              <td colSpan="3">
+                <input
+                  type="text"
+                  className="fID"
+                  onChange={(e) => setFid(e.target.value)}
                 />
               </td>
             </tr>

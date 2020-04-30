@@ -138,35 +138,6 @@ class Location extends Component {
           currentName: this.state.patientsList[i].name,
         });
     }
-    // if (this.state.showPanel) {
-    //   console.log("success");
-    //   this.setState({
-    //     panel: (
-    //       <MDBContainer className="panel">
-    //         <MDBCard>
-    //           <MDBCardHeader className="panelHeader">
-    //             <p> Patient Id: {this.state.currentId}</p>
-    //             <p> Name: {this.state.currentName}</p>
-    //           </MDBCardHeader>
-    //           <MDBCardBody className="panelBody">
-    //             <MDBCardText>
-    //               <img src={heart_red} />
-    //               Heart Rate: 100 bpm
-    //             </MDBCardText>
-    //             <MDBCardText onClick={this.handleSubmit(this.state.currentId)}>
-    //               <img src={info_black} />
-    //               View Patient Info
-    //             </MDBCardText>
-    //             <MDBCardText>
-    //               <img src={location_black} />
-    //               View Location Details
-    //             </MDBCardText>
-    //           </MDBCardBody>
-    //         </MDBCard>
-    //       </MDBContainer>
-    //     ),
-    //   });
-    // }
   };
 
   render() {

@@ -3,7 +3,8 @@ import { Component } from "react";
 import axios from "axios";
 import "./PatientList.css";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const api = "https://lachesisfitbit.com/api/getbyid=1";
+//const api = "https://lachesisfitbit.com/api/getbyid=1";
+const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
 
 class PatientList extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class PatientList extends Component {
   //The retrieved data is saved to the variable "patients"
   componentDidMount() {
     axios
-      .get(proxyurl + api)
+      .get(proxyurl + apiAll)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
@@ -29,11 +30,11 @@ class PatientList extends Component {
   }
 
   //redirect the user to the "DetailedPatientInfo" page for the patient clicked, and pass patient id as parameter in url.
-  handleSubmit = (e) => {
+  handleSubmit = (param) => (e) => {
     e.preventDefault();
     this.props.history.push({
-      pathname: "/detailed_patient_info/" + this.state.patients.pid,
-      data: this.state.patients,
+      pathname: "/detailed_patient_info/" + param,
+      data: param,
     });
   };
 
@@ -49,15 +50,17 @@ class PatientList extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{this.state.patients.pid}</td>
-              <td onClick={this.handleSubmit}>
-                {this.state.patients.firstName + " "}
-                {this.state.patients.lastName}
-              </td>
-              <td>25 min 13 sec</td>
-            </tr>
-            <tr>
+            {this.state.patients.map((patient) => (
+              <tr key={patient.pid}>
+                <td>{patient.pid}</td>
+                <td onClick={this.handleSubmit(patient.pid)}>
+                  {patient.firstName + " "}
+                  {patient.lastName}
+                </td>
+                <td>25 min 13 sec</td>
+              </tr>
+            ))}
+            {/* <tr>
               <td>2</td>
               <td onClick={this.handleSubmit}>William Smith</td>
               <td>25 min 13 sec</td>
@@ -66,7 +69,7 @@ class PatientList extends Component {
               <td>3</td>
               <td onClick={this.handleSubmit}>Jennifer Johnson</td>
               <td>20 min 3 sec</td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>

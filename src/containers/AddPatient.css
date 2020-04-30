@@ -45,12 +45,15 @@
   background-color: rgba(5, 5, 5, 0.09);
 }
 
-#form_table .phone {
+#form_table .phone,
+.fID,
+.height,
+.weight {
   border-radius: 5px;
   float: left;
   margin-left: 6px;
   margin-bottom: 5%;
-  width: 28.5%;
+  width: 80%;
   height: 30px;
   background-color: rgba(5, 5, 5, 0.09);
   border: none;

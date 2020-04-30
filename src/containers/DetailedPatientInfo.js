@@ -3,7 +3,7 @@ import "./DetailedPatientInfo.css";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const api = "https://lachesisfitbit.com/api/getbyid=1";
+const api = "https://lachesisfitbit.com/api/getbyid=";
 
 class DetailedPatientInfo extends Component {
   constructor(props) {
@@ -28,8 +28,9 @@ class DetailedPatientInfo extends Component {
   //function that retrieves data from backend server using RESTful API every time user opens this page
   //The retrieved data is saved to the variable "patients"
   componentDidMount() {
+    const { patientId } = this.props.match.params;
     axios
-      .get(proxyurl + api)
+      .get(proxyurl + api + patientId)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
