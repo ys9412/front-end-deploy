@@ -59,7 +59,10 @@ class App extends Component {
   };
 
   render() {
+    //const test = window.$test;
+
     console.log("list" + removed);
+    //console.log({ test });
     return (
       /* The content on the App files applies to all pages of the webste */
       <div className="App container" style={{ minWidth: 500 }}>

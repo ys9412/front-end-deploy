@@ -5,6 +5,8 @@ import "./PatientList.css";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 //const api = "https://lachesisfitbit.com/api/getbyid=1";
 const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
+const apiUpdate = "https://lachesisfitbit.com/api/updateConnect";
+//const
 
 class PatientList extends Component {
   constructor(props) {
@@ -38,7 +40,51 @@ class PatientList extends Component {
     });
   };
 
+  removePatient = (param) => (e) => {
+    e.preventDefault();
+    //delete patient from the list
+
+    const date = new Date();
+    const patient = {
+      finish: date,
+    };
+
+    axios
+      .post(apiUpdate)
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ patients: result });
+      })
+      .catch((error) => console.log("error", error));
+
+    // const myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
+
+    // const raw = JSON.stringify(patient);
+    // console.log(raw);
+
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: "follow",
+    // };
+
+    // //send new patient data to backend
+    // fetch(apiUpdate, requestOptions)
+    //   .then((response) => response.text() + "working")
+    //   .then((result) => console.log(result))
+    //   .catch((error) => console.log("error", error));
+
+    // this.props.history.push({
+    //   pathname: "/patient_list",
+    //   data: param,
+    // });
+  };
+
   render() {
+    const test = window.$test;
+    console.log("global" + { test }[0]);
     return (
       <div className="list">
         <table id="tableInfo">
@@ -53,11 +99,20 @@ class PatientList extends Component {
             {this.state.patients.map((patient) => (
               <tr key={patient.pid}>
                 <td>{patient.pid}</td>
-                <td onClick={this.handleSubmit(patient.pid)}>
-                  {patient.firstName + " "}
-                  {patient.lastName}
+                <td>
+                  <div onClick={this.handleSubmit(patient.pid)}>
+                    {patient.firstName + " "}
+                    {patient.lastName}
+                  </div>
+
+                  <button
+                    className="remove"
+                    onClick={this.removePatient(patient.pid)}
+                  >
+                    Remove
+                  </button>
                 </td>
-                <td>25 min 13 sec</td>
+                <td onClick={this.handleSubmit(patient.pid)}>25 min 13 sec</td>
               </tr>
             ))}
             {/* <tr>

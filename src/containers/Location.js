@@ -19,6 +19,16 @@ import {
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "https://lachesisfitbit.com/api/getbyid=1";
+const heartRateApi = "https://lachesisfitbit.com/api/recentFitbit=2";
+const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
+const apiActive = "https://lachesisfitbit.com/api//getActivePatients";
+const apiHeartRate = "https://lachesisfitbit.com/api/getbyfid=2";
+// /getAllbyfid=1
+// /recentFitbit=1
+// /updateConnect
+// return class from binding is patients_fitbit connection
+// /getActivePatients
+
 class Location extends Component {
   constructor(props) {
     super(props);
@@ -30,8 +40,10 @@ class Location extends Component {
   state = {
     patients: [],
     patientsList: [],
+    heartRate: [],
     currentId: "",
     currentName: "",
+    currentHeartRate: null,
     showPanel: false,
     panel: "",
   };
@@ -52,66 +64,67 @@ class Location extends Component {
 
   getPatients() {
     console.log("test interval");
+
     axios
-      .get(proxyurl + api)
+      .get(heartRateApi)
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ heartRate: result });
+      })
+      .catch((error) => console.log("error", error));
+
+    axios
+      .get(apiAll)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
-        this.setState({
-          patientsList: [
-            {
-              id: this.state.patients.pid,
-              name:
-                this.state.patients.firstName +
-                " " +
-                this.state.patients.lastName,
-              heartRate: 80,
-              stressLevel: 10,
-              img: green,
-            },
 
-            {
-              id: 2,
-              name: "William Smith",
-              heartRate: 120,
-              stressLevel: 50,
-              img: green,
-            },
-            {
-              id: 3,
-              name: "Jennifer Johnson",
-              heartRate: 100,
-              stressLevel: 30,
-              img: green,
-            },
-          ],
-        });
-        console.log(this.state.patientsList[0]);
+        console.log(this.state.patients[0]);
+        for (let i = 0; i < this.state.patients.length; i++) {
+          this.setState((state) => {
+            const patients = state.patients;
+            patients[i].stressLevel = 70;
+            patients[i].heartRate = 80;
+            patients[i].img = green;
+            return {
+              patients,
+            };
+          });
+        }
+
+        console.log(this.state.heartRate);
+        this.state.patients[0].heartRate = this.state.heartRate.heartrate;
 
         //set the color/shape based on the stress level of the patients in the list
-        for (let i = 0; i < this.state.patientsList.length; i++) {
-          if (this.state.patientsList[i].stressLevel <= 10)
+        for (let i = 0; i < this.state.patients.length; i++) {
+          if (this.state.patients[i].heartRate <= 70)
             this.setState((state) => {
-              const patientsList = state.patientsList;
-              patientsList[i].img = green;
+              const patients = state.patients;
+              patients[i].img = green;
               return {
-                patientsList,
+                patients,
               };
             });
-          else if (this.state.patientsList[i].stressLevel <= 30)
+          else if (
+            this.state.patients[i].heartRate > 70 &&
+            this.state.patients[i].heartRate <= 85
+          )
             this.setState((state) => {
-              const patientsList = state.patientsList;
-              patientsList[i].img = yellow;
+              const patients = state.patients;
+              patients[i].img = yellow;
               return {
-                patientsList,
+                patients,
               };
             });
-          else if (this.state.patientsList[i].stressLevel <= 50)
+          else if (
+            this.state.patients[i].heartRate > 85 &&
+            this.state.patients[i].heartRate <= 100
+          )
             this.setState((state) => {
-              const patientsList = state.patientsList;
-              patientsList[i].img = red;
+              const patients = state.patients;
+              patients[i].img = red;
               return {
-                patientsList,
+                patients,
               };
             });
         }
@@ -132,11 +145,18 @@ class Location extends Component {
     e.preventDefault();
     this.setState({ showPanel: true });
     this.setState({ currentId: param });
-    for (let i = 0; i < this.state.patientsList.length; i++) {
-      if (this.state.patientsList[i].id === param)
+    for (let i = 0; i < this.state.patients.length; i++) {
+      if (this.state.patients[i].pid === param) {
         this.setState({
-          currentName: this.state.patientsList[i].name,
+          currentName:
+            this.state.patients[i].firstName +
+            " " +
+            this.state.patients[i].lastName,
         });
+        this.setState({
+          currentHeartRate: this.state.patients[i].heartRate,
+        });
+      }
     }
   };
 
@@ -145,13 +165,13 @@ class Location extends Component {
       <div className="Location">
         <h1 className="header">Patient Location</h1>
         <div className="dot">
-          {this.state.patientsList.map((patient) => (
+          {this.state.patients.map((patient) => (
             <div
-              key={patient.id}
+              key={patient.pid}
               className="patientLocation"
-              onClick={this.openPanel(patient.id)}
+              onClick={this.openPanel(patient.pid)}
             >
-              <p>{patient.name}</p>
+              <p>{patient.firstName + " " + patient.lastName}</p>
               <img src={patient.img} />
             </div>
           ))}
@@ -201,7 +221,7 @@ class Location extends Component {
               <MDBCardBody className="panelBody">
                 <MDBCardText>
                   <img src={heart_red} />
-                  Heart Rate: 100 bpm
+                  Heart Rate: {this.state.currentHeartRate}
                 </MDBCardText>
                 <MDBCardText
                   className="pInfo"

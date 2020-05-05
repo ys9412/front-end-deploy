@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Input from "react-phone-number-input/input";
 import "./AddPatient.css";
 import axios from "axios";
+const test = window.$test;
 
 const api = "https://lachesisfitbit.com/api/uploadPatientsByJSON";
-const apiConnect = "https://lachesisfitbit.com/api/uploadConnectById";
+//const apiConnect = "https://lachesisfitbit.com/api/uploadConnectById";
+const newApi = "https://lachesisfitbit.com/api/inputBindingByJSON";
 
 export default function AddPatient(props) {
   const [first, setFirst] = useState();
@@ -89,7 +91,11 @@ export default function AddPatient(props) {
     }
 
     gender = sex === "Female" ? 0 : 1;
+
+    const date = new Date();
+
     const patient = {
+      fid: fid,
       mid: phoneNumber.substring(phoneNumber.length - 4),
       dobyear: year,
       dobmonth: month,
@@ -100,26 +106,17 @@ export default function AddPatient(props) {
       weight: weight,
       height: height,
       gender: gender,
+      start: date,
     };
 
-    const date = new Date();
-    const time =
-      date.getHours() +
-      ":" +
-      date.getMinutes() +
-      ":" +
-      date.getSeconds() +
-      ":" +
-      date.getMilliseconds();
-    console.log("time" + date);
-    const connect = {
-      fid: fid,
-      pid: 1,
-      matchId: phoneNumber.substring(phoneNumber.length - 4),
-      //get current time
-      start: date,
-      finish: finish,
-    };
+    // const connect = {
+    //   fid: fid,
+    //   pid: 1,
+    //   matchId: phoneNumber.substring(phoneNumber.length - 4),
+    //   //get current time
+    //   start: date,
+    //   finish: finish,
+    // };
 
     console.log(patient);
     const myHeaders = new Headers();
@@ -136,41 +133,41 @@ export default function AddPatient(props) {
     };
 
     //send new patient data to backend
-    fetch("https://lachesisfitbit.com/api/uploadPatientsByJSON", requestOptions)
-      .then((response) => {
-        response.text();
-      })
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-
-    setTime(connect);
-  }
-
-  //bind mobile ID and fitbit ID with patient
-  function setTime(connect) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify(connect);
-    console.log("content" + raw);
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch(apiConnect, requestOptions)
+    fetch(newApi, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
+
+    //returned data: {"matchid":14,"pid":1,"fid":2,"start":"2020-05-01T07:04:07.579+0000","finish":null}
+
+    //setTime(connect);
   }
+
+  //bind mobile ID and fitbit ID with patient
+  // function setTime(connect) {
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/json");
+
+  //   const raw = JSON.stringify(connect);
+  //   console.log("content" + raw);
+
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: myHeaders,
+  //     body: raw,
+  //     redirect: "follow",
+  //   };
+
+  //   fetch(apiConnect, requestOptions)
+  //     .then((response) => response.text())
+  //     .then((result) => console.log(result))
+  //     .catch((error) => console.log("error", error));
+  // }
 
   return (
     <div className="info">
       <form onSubmit={handleSubmit}>
-        <h1>New Patient Form</h1>
+        <h1>New Patient Form </h1>
         <table id="form_table">
           <tbody>
             <tr>
@@ -236,7 +233,7 @@ export default function AddPatient(props) {
                   className="weight"
                   onChange={(e) => setWeight(e.target.value)}
                 />
-                ft/in
+                lbs.
               </td>
               <td colSpan="3">
                 <input
@@ -244,7 +241,7 @@ export default function AddPatient(props) {
                   className="height"
                   onChange={(e) => setHeight(e.target.value)}
                 />
-                lbs.
+                ft/in
               </td>
             </tr>
             <tr>
