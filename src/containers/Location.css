@@ -91,3 +91,11 @@ img {
   margin-left: 55%;
   border-color: blue;
 }
+
+.heartRateText {
+  float: left;
+  color: red;
+  font-weight: bold;
+  font-size: small;
+  margin-bottom: 0;
+}

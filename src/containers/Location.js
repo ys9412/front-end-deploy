@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Location.css";
-import map from "./images/map_clear.jpeg";
+// import map from "./images/map_clear.jpeg";
+import map from "./images/newMap.svg";
 import green from "./images/SVG/location_green.svg";
 import yellow from "./images/SVG/location_yellow.svg";
 import red from "./images/SVG/location_red.svg";
@@ -19,7 +20,10 @@ import {
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "https://lachesisfitbit.com/api/getbyid=1";
-const heartRateApi = "https://lachesisfitbit.com/api/recentFitbit=2";
+const heartRateApi1 = "https://lachesisfitbit.com/api/recentFitbit=1";
+const heartRateApi2 = "https://lachesisfitbit.com/api/recentFitbit=2";
+const heartRateApi3 = "https://lachesisfitbit.com/api/recentFitbit=3";
+
 const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
 const apiActive = "https://lachesisfitbit.com/api//getActivePatients";
 const apiHeartRate = "https://lachesisfitbit.com/api/getbyfid=2";
@@ -40,10 +44,12 @@ class Location extends Component {
   state = {
     patients: [],
     patientsList: [],
-    heartRate: [],
+    heartRate1: [],
+    heartRate2: [],
+    heartRate3: [],
     currentId: "",
     currentName: "",
-    currentHeartRate: null,
+    currentHeartRate: 0,
     showPanel: false,
     panel: "",
   };
@@ -54,7 +60,7 @@ class Location extends Component {
     // proxyurl = window.$proxyurl;
     // api = window.$api;
     this.getPatients();
-    this.timer = setInterval(() => this.getPatients(), 5000);
+    this.timer = setInterval(() => this.getPatients(), 50000);
   }
 
   componentWillUnmount() {
@@ -66,10 +72,24 @@ class Location extends Component {
     console.log("test interval");
 
     axios
-      .get(heartRateApi)
+      .get(heartRateApi1)
       .then((response) => response.data)
       .then((result) => {
-        this.setState({ heartRate: result });
+        this.setState({ heartRate1: result });
+      })
+      .catch((error) => console.log("error", error));
+    axios
+      .get(heartRateApi2)
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ heartRate2: result });
+      })
+      .catch((error) => console.log("error", error));
+    axios
+      .get(heartRateApi3)
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ heartRate3: result });
       })
       .catch((error) => console.log("error", error));
 
@@ -93,7 +113,9 @@ class Location extends Component {
         }
 
         console.log(this.state.heartRate);
-        this.state.patients[0].heartRate = this.state.heartRate.heartrate;
+        this.state.patients[0].heartRate = this.state.heartRate1.heartrate;
+        this.state.patients[1].heartRate = this.state.heartRate2.heartrate;
+        this.state.patients[2].heartRate = this.state.heartRate3.heartrate;
 
         //set the color/shape based on the stress level of the patients in the list
         for (let i = 0; i < this.state.patients.length; i++) {
@@ -105,10 +127,7 @@ class Location extends Component {
                 patients,
               };
             });
-          else if (
-            this.state.patients[i].heartRate > 70 &&
-            this.state.patients[i].heartRate <= 85
-          )
+          else if (this.state.patients[i].heartRate <= 85)
             this.setState((state) => {
               const patients = state.patients;
               patients[i].img = yellow;
@@ -116,10 +135,7 @@ class Location extends Component {
                 patients,
               };
             });
-          else if (
-            this.state.patients[i].heartRate > 85 &&
-            this.state.patients[i].heartRate <= 100
-          )
+          else if (this.state.patients[i].heartRate >= 85)
             this.setState((state) => {
               const patients = state.patients;
               patients[i].img = red;
@@ -171,7 +187,9 @@ class Location extends Component {
               className="patientLocation"
               onClick={this.openPanel(patient.pid)}
             >
+              <p className="heartRateText">{patient.heartRate + "bpm"}</p>
               <p>{patient.firstName + " " + patient.lastName}</p>
+
               <img src={patient.img} />
             </div>
           ))}
