@@ -20,10 +20,8 @@ import {
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "https://lachesisfitbit.com/api/getbyid=1";
-const heartRateApi1 = "https://lachesisfitbit.com/api/recentFitbit=1";
-const heartRateApi2 = "https://lachesisfitbit.com/api/recentFitbit=2";
-const heartRateApi3 = "https://lachesisfitbit.com/api/recentFitbit=3";
-
+const heartRateApi = "https://lachesisfitbit.com/api/recentFitbit=";
+const locationApi = "https://lachesisfitbit.com/api/getbylid=";
 const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
 const apiActive = "https://lachesisfitbit.com/api//getActivePatients";
 const apiHeartRate = "https://lachesisfitbit.com/api/getbyfid=2";
@@ -43,15 +41,21 @@ class Location extends Component {
   //variable for list of patients
   state = {
     patients: [],
-    patientsList: [],
-    heartRate1: [],
-    heartRate2: [],
-    heartRate3: [],
+    heartRate: [],
+    location: [],
     currentId: "",
     currentName: "",
     currentHeartRate: 0,
     showPanel: false,
     panel: "",
+    //Room 1
+    // left: 52 + "%",
+    // top: 92 + "%",
+    // padding: 500 + "%",
+    //Room 2
+    left: 57 + "%",
+    top: 92 + "%",
+    padding: 500 + "%",
   };
 
   //function that retrieves data from backend server using RESTful API every time user opens this page
@@ -60,6 +64,7 @@ class Location extends Component {
     // proxyurl = window.$proxyurl;
     // api = window.$api;
     this.getPatients();
+    //5000
     this.timer = setInterval(() => this.getPatients(), 50000);
   }
 
@@ -69,53 +74,68 @@ class Location extends Component {
   }
 
   getPatients() {
+    //fetch heartrate data from fitbit device 1, 2, 3
     console.log("test interval");
+    for (let i = 1; i < 4; i++) {
+      axios
+        .get(heartRateApi + i.toString())
+        .then((response) => response.data)
+        .then((result) => {
+          this.setState({ heartRate: this.state.heartRate.concat(result) });
+          console.log(this.state.heartRate);
+        })
 
-    axios
-      .get(heartRateApi1)
-      .then((response) => response.data)
-      .then((result) => {
-        this.setState({ heartRate1: result });
-      })
-      .catch((error) => console.log("error", error));
-    axios
-      .get(heartRateApi2)
-      .then((response) => response.data)
-      .then((result) => {
-        this.setState({ heartRate2: result });
-      })
-      .catch((error) => console.log("error", error));
-    axios
-      .get(heartRateApi3)
-      .then((response) => response.data)
-      .then((result) => {
-        this.setState({ heartRate3: result });
-      })
-      .catch((error) => console.log("error", error));
+        .catch((error) => console.log("error", error));
+    }
 
+    //fetch lodation data from mobile phone 1, 2, 3
+    for (let i = 1; i < 4; i++) {
+      axios
+        .get(locationApi + i.toString())
+        .then((response) => response.data)
+        .then((result) => {
+          this.setState({ location: this.state.location.concat(result) });
+          console.log(this.state.location);
+        })
+
+        .catch((error) => console.log("error", error));
+    }
+
+    //fetch patient list
     axios
       .get(apiAll)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
-
         console.log(this.state.patients[0]);
-        for (let i = 0; i < this.state.patients.length; i++) {
+        //for (let i = 0; i < this.state.patients.length; i++) {
+        for (let i = 0; i < 3; i++) {
           this.setState((state) => {
             const patients = state.patients;
             patients[i].stressLevel = 70;
-            patients[i].heartRate = 80;
+            patients[i].heartRate = this.state.heartRate[i].heartrate;
             patients[i].img = green;
+            patients[i].location = this.state.location[i].location;
+            if (patients[i].location === "RoomA") {
+              patients[i].left = 50;
+              patients[i].top = 113;
+            }
+            if (patients[i].location === "RoomB") {
+              patients[i].left = 55;
+              patients[i].top = 113;
+            }
+            if (patients[i].location === "Roomc") {
+              patients[i].left = 50;
+              patients[i].top = 99;
+            }
             return {
               patients,
             };
           });
         }
+        console.log(this.state.patients);
 
         console.log(this.state.heartRate);
-        this.state.patients[0].heartRate = this.state.heartRate1.heartrate;
-        this.state.patients[1].heartRate = this.state.heartRate2.heartrate;
-        this.state.patients[2].heartRate = this.state.heartRate3.heartrate;
 
         //set the color/shape based on the stress level of the patients in the list
         for (let i = 0; i < this.state.patients.length; i++) {
@@ -177,27 +197,52 @@ class Location extends Component {
   };
 
   render() {
+    const left = this.state.left;
+    const top = this.state.top;
+    const tempPatients = this.state.patients.slice(0, 3);
     return (
       <div className="Location">
         <h1 className="header">Patient Location</h1>
         <div className="dot">
-          {this.state.patients.map((patient) => (
+          {tempPatients.map((patient) => (
             <div
               key={patient.pid}
               className="patientLocation"
               onClick={this.openPanel(patient.pid)}
             >
-              <p className="heartRateText">{patient.heartRate + "bpm"}</p>
-              <p>{patient.firstName + " " + patient.lastName}</p>
+              <p
+                className="heartRateText"
+                style={{
+                  left: patient.left + "%",
+                  top: patient.top - 2 + "%",
+                  position: "absolute",
+                }}
+              >
+                {patient.heartRate + "bpm"}
+              </p>
+              <p
+                style={{
+                  left: patient.left + "%",
+                  top: patient.top + "%",
+                  position: "absolute",
+                }}
+              >
+                {patient.firstName + " " + patient.lastName}
+              </p>
 
-              <img src={patient.img} />
+              <img
+                src={patient.img}
+                style={{
+                  marginTop: 1.5 + "%",
+                  width: 3 + "%",
+                  height: 3 + "%",
+                  left: patient.left + "%",
+                  top: patient.top + "%",
+                  position: "absolute",
+                }}
+              />
             </div>
           ))}
-          {/* <img src={this.state.patientsList[0].img} alt="circle" />
-          <p>{this.state.patientsList[1].name}</p>
-          <img src={this.state.patientsList[1].img} alt="circle" />
-          <p>{this.state.patientsList[2].name}</p>
-          <img src={this.state.patientsList[2].img} alt="circle" /> */}
         </div>
         <table className="grid">
           {/* this is the note displayed above the map on the right side */}
@@ -229,6 +274,7 @@ class Location extends Component {
           </tbody>
         </table>
         <img src={map} alt="Map" className="map" />
+
         {this.state.showPanel ? (
           <MDBContainer className="panel">
             <MDBCard>

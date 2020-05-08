@@ -40,15 +40,13 @@ img {
 }
 
 .dot {
-  position: absolute;
+  /* position: absolute; */
+  /*
   top: 78%;
   bottom: 10%;
   right: 10%;
-  left: 50%;
-  width: 1.5%;
-  min-width: 0.8em;
-  height: 1.5%;
-  min-height: 0.8em;
+  left: 50%; */
+
   font-weight: 800;
   font-size: 100%;
   color: rgb(22, 18, 224);
