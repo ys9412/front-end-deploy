@@ -96,7 +96,7 @@ export default function AddPatient(props) {
 
     const patient = {
       fid: fid,
-      mid: phoneNumber.substring(phoneNumber.length - 4),
+      mid: phoneNumber,
       dobyear: year,
       dobmonth: month,
       dobday: day,

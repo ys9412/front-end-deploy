@@ -65,7 +65,7 @@ class Location extends Component {
     // api = window.$api;
     this.getPatients();
     //5000
-    this.timer = setInterval(() => this.getPatients(), 50000);
+    this.timer = setInterval(() => this.getPatients(), 5000);
   }
 
   componentWillUnmount() {
@@ -116,17 +116,25 @@ class Location extends Component {
             patients[i].heartRate = this.state.heartRate[i].heartrate;
             patients[i].img = green;
             patients[i].location = this.state.location[i].location;
+            console.log("patient heart rate:" + patients[i].heartRate);
             if (patients[i].location === "RoomA") {
-              patients[i].left = 50;
-              patients[i].top = 113;
+              patients[i].left = 57;
+              patients[i].right = 44;
+              patients[i].top = 120;
+              // patients[i].bottom = 32;
+              //145
             }
             if (patients[i].location === "RoomB") {
-              patients[i].left = 55;
-              patients[i].top = 113;
+              patients[i].left = 62;
+              patients[i].right = 39;
+              patients[i].top = 120;
+              // patients[i].bottom = 32;
             }
             if (patients[i].location === "Roomc") {
-              patients[i].left = 50;
-              patients[i].top = 99;
+              patients[i].left = 58;
+              patients[i].right = 43;
+              patients[i].top = 100;
+              // patients[i].bottom = 58;
             }
             return {
               patients,
@@ -134,8 +142,6 @@ class Location extends Component {
           });
         }
         console.log(this.state.patients);
-
-        console.log(this.state.heartRate);
 
         //set the color/shape based on the stress level of the patients in the list
         for (let i = 0; i < this.state.patients.length; i++) {
@@ -199,12 +205,13 @@ class Location extends Component {
   render() {
     const left = this.state.left;
     const top = this.state.top;
-    const tempPatients = this.state.patients.slice(0, 3);
+    //const tempPatients = this.state.patients.slice(0, 3);
     return (
       <div className="Location">
         <h1 className="header">Patient Location</h1>
+        <img src={map} alt="Map" className="map" />
         <div className="dot">
-          {tempPatients.map((patient) => (
+          {this.state.patients.map((patient) => (
             <div
               key={patient.pid}
               className="patientLocation"
@@ -214,7 +221,9 @@ class Location extends Component {
                 className="heartRateText"
                 style={{
                   left: patient.left + "%",
+                  right: patient.right + "%",
                   top: patient.top - 2 + "%",
+                  // bottom: patient.bottom + "%",
                   position: "absolute",
                 }}
               >
@@ -223,7 +232,10 @@ class Location extends Component {
               <p
                 style={{
                   left: patient.left + "%",
+                  right: patient.right - 10 + "%",
                   top: patient.top + "%",
+                  // bottom: patient.bottom + "%",
+
                   position: "absolute",
                 }}
               >
@@ -233,11 +245,15 @@ class Location extends Component {
               <img
                 src={patient.img}
                 style={{
-                  marginTop: 1.5 + "%",
+                  marginTop: 2 + "%",
+                  marginBottom: 0,
                   width: 3 + "%",
                   height: 3 + "%",
                   left: patient.left + "%",
+                  right: patient.right + "%",
                   top: patient.top + "%",
+                  // bottom: patient.bottom + "%",
+
                   position: "absolute",
                 }}
               />
@@ -273,7 +289,6 @@ class Location extends Component {
             </tr>
           </tbody>
         </table>
-        <img src={map} alt="Map" className="map" />
 
         {this.state.showPanel ? (
           <MDBContainer className="panel">

@@ -1,10 +1,11 @@
 .panel {
-  top: 30%;
-  right: 10%;
-  width: 17%;
-  float: left;
+  position: absolute;
+  margin-left: 64%;
+  margin-top: 4%;
+  width: 13%;
   background-color: hsla(231, 87%, 76%, 0.404);
   min-width: 9em;
+  min-height: 9em;
 }
 
 .panel img {
@@ -64,14 +65,14 @@ img {
 }
 
 .map {
-  margin-top: 0;
+  margin-top: 5%;
   float: left;
-  width: 83%;
-  height: 85%;
+  width: 100%;
+  height: 100%;
   /* margin-left: 5%;
   margin-right: 5%; */
-  min-width: 30em;
-  min-height: 20em;
+  /* min-width: 30em;
+  min-height: 20em; */
 }
 
 .txt {
@@ -86,8 +87,10 @@ img {
 }
 
 .grid {
-  margin-left: 55%;
+  margin-left: 35%;
+  margin-top: 4%;
   border-color: blue;
+  position: absolute;
 }
 
 .heartRateText {
