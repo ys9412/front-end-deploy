@@ -23,7 +23,7 @@ const api = "https://lachesisfitbit.com/api/getbyid=1";
 const heartRateApi = "https://lachesisfitbit.com/api/recentFitbit=";
 const locationApi = "https://lachesisfitbit.com/api/getbylid=";
 const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
-const apiActive = "https://lachesisfitbit.com/api//getActivePatients";
+const apiActive = "https://lachesisfitbit.com/api/getActivePatients";
 const apiHeartRate = "https://lachesisfitbit.com/api/getbyfid=2";
 // /getAllbyfid=1
 // /recentFitbit=1
@@ -41,8 +41,12 @@ class Location extends Component {
   //variable for list of patients
   state = {
     patients: [],
-    heartRate: [],
-    location: [],
+    heartRate1: [],
+    heartRate2: [],
+    heartRate3: [],
+    location1: [],
+    location2: [],
+    location3: [],
     currentId: "",
     currentName: "",
     currentHeartRate: 0,
@@ -65,7 +69,7 @@ class Location extends Component {
     // api = window.$api;
     this.getPatients();
     //5000
-    this.timer = setInterval(() => this.getPatients(), 5000);
+    this.timer = setInterval(() => this.getPatients(), 500000);
   }
 
   componentWillUnmount() {
@@ -76,47 +80,105 @@ class Location extends Component {
   getPatients() {
     //fetch heartrate data from fitbit device 1, 2, 3
     console.log("test interval");
-    for (let i = 1; i < 4; i++) {
-      axios
-        .get(heartRateApi + i.toString())
-        .then((response) => response.data)
-        .then((result) => {
-          this.setState({ heartRate: this.state.heartRate.concat(result) });
-          console.log(this.state.heartRate);
-        })
+    // for (let i = 1; i < 4; i++) {
+    //   axios
+    //     .get(heartRateApi + i.toString())
+    //     .then((response) => response.data)
+    //     .then((result) => {
+    //       this.setState({ heartRate: this.state.heartRate.concat(result) });
+    //       console.log(this.state.heartRate);
+    //     })
 
-        .catch((error) => console.log("error", error));
-    }
+    //     .catch((error) => console.log("error", error));
+    // }
+    axios
+      .get(heartRateApi + "1")
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ heartRate1: result });
+        console.log("pid 1 Heartrate:" + this.state.heartRate1.heartrate);
+      })
+
+      .catch((error) => console.log("error", error));
+    axios
+      .get(heartRateApi + "2")
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ heartRate2: result });
+        console.log("pid 2 Heartrate:" + this.state.heartRate2.heartrate);
+      })
+
+      .catch((error) => console.log("error", error));
+    axios
+      .get(heartRateApi + "3")
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ heartRate3: result });
+        console.log("pid 3 Heartrate:" + this.state.heartRate3.heartrate);
+      })
+
+      .catch((error) => console.log("error", error));
 
     //fetch lodation data from mobile phone 1, 2, 3
-    for (let i = 1; i < 4; i++) {
-      axios
-        .get(locationApi + i.toString())
-        .then((response) => response.data)
-        .then((result) => {
-          this.setState({ location: this.state.location.concat(result) });
-          console.log(this.state.location);
-        })
+    // for (let i = 1; i < 4; i++) {
+    //   axios
+    //     .get(locationApi + i.toString())
+    //     .then((response) => response.data)
+    //     .then((result) => {
+    //       this.setState({ location: this.state.location.concat(result) });
+    //       console.log(this.state.location);
+    //     })
 
-        .catch((error) => console.log("error", error));
-    }
+    //     .catch((error) => console.log("error", error));
+    // }
+
+    axios
+      .get(locationApi + "1")
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ location1: result });
+        console.log("pid 1 location:" + this.state.location1.location);
+      })
+
+      .catch((error) => console.log("error", error));
+    axios
+      .get(locationApi + "2")
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ location2: result });
+        console.log("pid 2 location:" + this.state.location2.location);
+      })
+
+      .catch((error) => console.log("error", error));
+    axios
+      .get(locationApi + "3")
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ location3: result });
+        console.log("pid 3 location:" + this.state.location3.location);
+      })
+
+      .catch((error) => console.log("error", error));
 
     //fetch patient list
     axios
-      .get(apiAll)
+      .get(apiActive)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
-        console.log(this.state.patients[0]);
         //for (let i = 0; i < this.state.patients.length; i++) {
+        this.state.patients[0].heartRate = this.state.heartRate1.heartrate;
+        this.state.patients[1].heartRate = this.state.heartRate2.heartrate;
+        this.state.patients[2].heartRate = this.state.heartRate3.heartrate;
+        this.state.patients[0].location = this.state.location1.location;
+        this.state.patients[1].location = this.state.location2.location;
+        this.state.patients[2].location = this.state.location3.location;
+
         for (let i = 0; i < 3; i++) {
           this.setState((state) => {
             const patients = state.patients;
             patients[i].stressLevel = 70;
-            patients[i].heartRate = this.state.heartRate[i].heartrate;
             patients[i].img = green;
-            patients[i].location = this.state.location[i].location;
-            console.log("patient heart rate:" + patients[i].heartRate);
             if (patients[i].location === "RoomA") {
               patients[i].left = 57;
               patients[i].right = 44;
@@ -125,17 +187,24 @@ class Location extends Component {
               //145
             }
             if (patients[i].location === "RoomB") {
-              patients[i].left = 62;
+              patients[i].left = 63;
               patients[i].right = 39;
               patients[i].top = 120;
               // patients[i].bottom = 32;
             }
-            if (patients[i].location === "Roomc") {
+            if (patients[i].location === "RoomC") {
               patients[i].left = 58;
               patients[i].right = 43;
               patients[i].top = 100;
               // patients[i].bottom = 58;
             }
+            if (patients[i].location === "Waiting") {
+              patients[i].left = 35;
+              patients[i].right = 45;
+              patients[i].top = 55;
+              // patients[i].bottom = 58;
+            }
+
             return {
               patients,
             };
@@ -205,13 +274,13 @@ class Location extends Component {
   render() {
     const left = this.state.left;
     const top = this.state.top;
-    //const tempPatients = this.state.patients.slice(0, 3);
+    const tempPatients = this.state.patients.slice(0, 3);
     return (
       <div className="Location">
         <h1 className="header">Patient Location</h1>
         <img src={map} alt="Map" className="map" />
         <div className="dot">
-          {this.state.patients.map((patient) => (
+          {tempPatients.map((patient) => (
             <div
               key={patient.pid}
               className="patientLocation"

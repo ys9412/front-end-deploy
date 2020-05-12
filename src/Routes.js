@@ -10,6 +10,7 @@ import DetaildPatientInfo from "./containers/DetailedPatientInfo";
 import PatientList from "./containers/PatientList";
 import AddPatient from "./containers/AddPatient";
 import Feedback from "./containers/Feedback";
+import Test from "./containers/Test";
 
 export default function Routes() {
   return (
@@ -20,6 +21,7 @@ export default function Routes() {
       <Route path="/signup" exact component={SignUp} />
       <Route path="/menu" exact component={Menu} />
       <Route path="/location" exact component={Location} />
+      <Route path="/test" exact component={Test} />
       <Route
         path="/detailed_patient_info/:patientId"
         component={DetaildPatientInfo}
