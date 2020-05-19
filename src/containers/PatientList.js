@@ -6,6 +6,9 @@ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 //const api = "https://lachesisfitbit.com/api/getbyid=1";
 const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
 const apiUpdate = "https://lachesisfitbit.com/api/updateConnect";
+const apiActive = "https://lachesisfitbit.com/api/getActivePatients";
+const apiSignOff = "https://lachesisfitbit.com/api/SignOffBypid=";
+
 //const
 
 class PatientList extends Component {
@@ -23,7 +26,7 @@ class PatientList extends Component {
   //The retrieved data is saved to the variable "patients"
   componentDidMount() {
     axios
-      .get(proxyurl + apiAll)
+      .get(apiActive)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
@@ -44,37 +47,35 @@ class PatientList extends Component {
     e.preventDefault();
     //delete patient from the list
 
-    const date = new Date();
-    const patient = {
-      finish: date,
+    // axios
+    //   .post(apiSignOff + param, {
+    //     headers: { "Content-Type": "application/json" },
+    //   })
+    //   .then((response) => console.log(response))
+
+    //   .catch((error) => console.log("error", error));
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify("");
+    console.log(raw);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+
+      redirect: "follow",
     };
 
-    axios
-      .post(apiUpdate)
-      .then((response) => response.data)
-      .then((result) => {
-        this.setState({ patients: result });
-      })
+    //send new patient data to backend
+    fetch(apiSignOff + param, requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
 
-    // const myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
-
-    // const raw = JSON.stringify(patient);
-    // console.log(raw);
-
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: "follow",
-    // };
-
-    // //send new patient data to backend
-    // fetch(apiUpdate, requestOptions)
-    //   .then((response) => response.text() + "working")
-    //   .then((result) => console.log(result))
-    //   .catch((error) => console.log("error", error));
+    alert("The patient is successfully removed from the list.");
+    window.location.reload(false);
 
     // this.props.history.push({
     //   pathname: "/patient_list",

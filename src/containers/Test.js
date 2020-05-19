@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const heartRateApi = "https://lachesisfitbit.com/api/recentFitbit=";
+const apiActive = "https://lachesisfitbit.com/api/getActivePatients";
+const locationApi = "https://lachesisfitbit.com/api/getbylid=";
 
 // /getAllbyfid=1
 // /recentFitbit=1
@@ -19,6 +21,8 @@ class Test extends Component {
   //variable for list of patients
   state = {
     heartRate: [],
+    patients: [],
+    location: [],
   };
 
   //function that retrieves data from backend server using RESTful API every time user opens this page
@@ -28,7 +32,7 @@ class Test extends Component {
     // api = window.$api;
     this.getPatients();
     //5000
-    this.timer = setInterval(() => this.getPatients(), 5000);
+    this.timer = setInterval(() => this.getPatients(), 5000000);
   }
 
   componentWillUnmount() {
@@ -38,7 +42,6 @@ class Test extends Component {
 
   getPatients() {
     //fetch heartrate data from fitbit device 1, 2, 3
-    console.log("test interval");
     // for (let i = 1; i < 4; i++) {
     //   axios
     //     .get(heartRateApi + i.toString())
@@ -51,14 +54,55 @@ class Test extends Component {
     //     .catch((error) => console.log("error", error));
     // }
     axios
-      .get(heartRateApi + "1")
+      .get(apiActive)
       .then((response) => response.data)
       .then((result) => {
-        this.setState({ heartRate: result });
-        console.log("pid 1 Heartrate:" + this.state.heartRate.heartrate);
+        this.setState({ patients: result });
+        console.log("patients" + this.state.patients);
+        for (let i = 1; i <= this.state.patients.length; i++) {
+          axios
+            .get(heartRateApi + i.toString())
+            .then((response) => response.data)
+            .then((result) => {
+              console.log(result);
+              this.setState({ heartRate: this.state.heartRate.concat(result) });
+              console.log("result" + this.state.heartRate[i - 1].heartrate);
+              this.setState((state) => {
+                const patients = state.patients;
+                patients[i - 1].heartRate = this.state.heartRate[
+                  i - 1
+                ].heartrate;
+                return {
+                  patients,
+                };
+              });
+              console.log("test" + this.state.patients);
+            })
+
+            .catch((error) => console.log("error", error));
+
+          axios
+            .get(locationApi + i.toString())
+            .then((response) => response.data)
+            .then((result) => {
+              console.log(result);
+              this.setState({ location: this.state.location.concat(result) });
+              console.log("result" + this.state.location[i - 1].location);
+              this.setState((state) => {
+                const patients = state.patients;
+                patients[i - 1].location = this.state.location[i - 1].location;
+                return {
+                  patients,
+                };
+              });
+            })
+
+            .catch((error) => console.log("error", error));
+        }
       })
 
       .catch((error) => console.log("error", error));
+
     // axios
     //   .get(heartRateApi + "2")
     //   .then((response) => response.data)
@@ -183,7 +227,15 @@ class Test extends Component {
     return (
       <div className="Test">
         <h1 className="header">Patient Location</h1>
-        <p>{this.state.heartRate.heartrate}</p>
+        <div className="dot">
+          {this.state.patients.map((patient) => (
+            <div key={patient.pid} className="patientLocation">
+              <p className="heartRateText">{patient.heartRate + "bpm"}</p>
+              <p>{patient.firstName + patient.lastName}</p>
+              <p>{patient.location}</p>
+            </div>
+          ))}
+        </div>
         {/* <img src={map} alt="Map" className="map" />
         <div className="dot">
           {this.state.patients.map((patient) => (
