@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Home from "./containers/Menu";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
@@ -15,7 +15,8 @@ import Test from "./containers/Test";
 export default function Routes() {
   return (
     /* Set up paths for pages */
-    <Switch>
+    <Switch basename="src">
+      {/* <BrowserRouter basename="src"> */}
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
       <Route path="/signup" exact component={SignUp} />
@@ -30,6 +31,7 @@ export default function Routes() {
       <Route path="/add_patient" exact component={AddPatient} />
       <Route path="/feedback" exact component={Feedback} />
       <Route component={NotFound} />
+      {/* </BrowserRouter> */}
     </Switch>
   );
 }
