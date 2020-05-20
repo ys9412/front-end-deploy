@@ -44,7 +44,7 @@ class DetailedPatientInfo extends Component {
 
     this.getHeartRate(patientId);
     //5000
-    this.timer = setInterval(() => this.getHeartRate(patientId), 500000);
+    this.timer = setInterval(() => this.getHeartRate(patientId), 40000);
   }
 
   // function handleSubmit(event) {
@@ -56,6 +56,9 @@ class DetailedPatientInfo extends Component {
     this.timer = null;
   }
   getHeartRate(patientId) {
+    this.setState({ heartRate: [] });
+    this.setState({ time: [] });
+    this.setState({ stressLevel: [] });
     console.log(apiHeartRateList + patientId);
     axios
       .get(apiHeartRateList + patientId)
@@ -66,9 +69,16 @@ class DetailedPatientInfo extends Component {
           this.setState((state) => {
             let heartRate = state.heartRate;
             let time = state.time;
+            let timestamp = state.timestamp;
             let stressLevel = state.stressLevel;
+            let totalSeconds = (i + 1) * 5;
             heartRate = heartRate.concat(this.state.heartRates[i].heartrate);
-            time = time.concat((i + 1) * 5);
+            time = time.concat(
+              Math.floor(totalSeconds / 60) +
+                " min " +
+                (totalSeconds % 60) +
+                " sec"
+            );
             stressLevel = stressLevel.concat(
               (this.state.heartRates[i].heartrate + this.state.time[i] / 12) / 2
             );
