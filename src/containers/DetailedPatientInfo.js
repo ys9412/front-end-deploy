@@ -27,6 +27,7 @@ class DetailedPatientInfo extends Component {
     heartRates: [],
     heartRate: [],
     stressLevel: [],
+    temp: [],
     time: ["0 sec"],
   };
 
@@ -43,8 +44,9 @@ class DetailedPatientInfo extends Component {
       .catch((error) => console.log("error", error));
 
     this.getHeartRate(patientId);
+    this.getHeartRateUpdated(patientId);
     //5000
-    this.timer = setInterval(() => this.getHeartRate(patientId), 40000);
+    this.timer = setInterval(() => this.getHeartRateUpdated(patientId), 20000);
   }
 
   // function handleSubmit(event) {
@@ -55,11 +57,9 @@ class DetailedPatientInfo extends Component {
     clearInterval(this.timer);
     this.timer = null;
   }
+
   getHeartRate(patientId) {
-    this.setState({ heartRate: [] });
-    this.setState({ time: [] });
-    this.setState({ stressLevel: [] });
-    console.log(apiHeartRateList + patientId);
+    console.log("first fetch");
     axios
       .get(apiHeartRateList + patientId)
       .then((response) => response.data)
@@ -69,7 +69,6 @@ class DetailedPatientInfo extends Component {
           this.setState((state) => {
             let heartRate = state.heartRate;
             let time = state.time;
-            let timestamp = state.timestamp;
             let stressLevel = state.stressLevel;
             let totalSeconds = (i + 1) * 5;
             heartRate = heartRate.concat(this.state.heartRates[i].heartrate);
@@ -81,6 +80,43 @@ class DetailedPatientInfo extends Component {
             );
             stressLevel = stressLevel.concat(
               (this.state.heartRates[i].heartrate + this.state.time[i] / 12) / 2
+            );
+            return {
+              heartRate,
+              stressLevel,
+              time,
+            };
+          });
+        }
+      })
+      .catch((error) => console.log("error", error));
+  }
+  getHeartRateUpdated(patientId) {
+    console.log("fetch new heart rate");
+    axios
+      .get(apiHeartRateList + patientId)
+      .then((response) => response.data)
+      .then((result) => {
+        this.setState({ temp: result });
+        let newHR = this.state.temp.slice(this.state.heartRates.length);
+        this.setState({
+          heartRates: this.state.heartRates.concat(newHR),
+        });
+        for (let i = 0; i < newHR.length; i++) {
+          this.setState((state) => {
+            let heartRate = state.heartRate;
+            let time = state.time;
+            let stressLevel = state.stressLevel;
+            let totalSeconds = (this.state.heartRates.length + i + 1) * 5;
+            heartRate = heartRate.concat(newHR[i].heartrate);
+            time = time.concat(
+              Math.floor(totalSeconds / 60) +
+                " min " +
+                (totalSeconds % 60) +
+                " sec"
+            );
+            stressLevel = stressLevel.concat(
+              (newHR[i].heartrate + this.state.time[i] / 12) / 2
             );
             return {
               heartRate,
@@ -106,12 +142,6 @@ class DetailedPatientInfo extends Component {
           this.props.match.params.patientId.toString()
         ) {
           console.log("pid match");
-          //this.setState({ firstName: this.state.patients.firstName });
-          this.state.patient.firstName = this.state.patients.firstName;
-          this.state.patient.lastName = this.state.patients.lastName;
-          this.state.patient.dobmonth = this.state.patients.dobmonth;
-          this.state.patient.dobday = this.state.patients.dobday;
-          this.state.patient.dobyear = this.state.patients.dobyear;
         } else console.log("pid fail");
       }
     }
@@ -164,16 +194,16 @@ class DetailedPatientInfo extends Component {
       <div className="DetailedInfo">
         <div className="basic">
           <h1 className="name">
-            {this.state.patient.firstName + " "}
-            {this.state.patient.lastName}
+            {this.state.patients.firstName + " "}
+            {this.state.patients.lastName}
           </h1>
           <p>
             DOB:{" "}
-            {this.state.patient.dobmonth +
+            {this.state.patients.dobmonth +
               "/" +
-              this.state.patient.dobday +
+              this.state.patients.dobday +
               "/" +
-              this.state.patient.dobyear}
+              this.state.patients.dobyear}
           </p>
           <p>Sex: Male</p>
           <p>Heart rate: 118 bpm</p>
