@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 import Routes from "./Routes";
+import { AppContext } from "./libs/contextLib";
+import { Auth } from "aws-amplify";
 import { Link, withRouter } from "react-router-dom";
 import {
   Nav,
@@ -23,6 +25,7 @@ class App extends Component {
     super(props);
     this.goToPatient = this.goToPatient.bind(this);
     this.removeAlert = this.removeAlert.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   state = {
@@ -39,7 +42,14 @@ class App extends Component {
     ],
     showAlert: false,
     showOptions: false,
+    isAuthenticated: false,
+    userHasAuthenticated: false,
   };
+
+  handleLogout() {
+    // this.state.userHasAuthenticated(false);
+    this.setState({ userHasAuthenticated: false });
+  }
 
   goToPatient = (param) => (e) => {
     e.preventDefault();
@@ -145,16 +155,26 @@ class App extends Component {
 
           <Navbar.Collapse>
             <Nav pullRight>
-              <LinkContainer to="/signup">
-                <NavItem>Signup</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <NavItem>Login</NavItem>
-              </LinkContainer>
+              {this.state.isAuthenticated ? (
+                <NavItem onClick={this.handleLogout}>Logout</NavItem>
+              ) : (
+                <>
+                  <LinkContainer to="/signup">
+                    <NavItem>Signup</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <NavItem>Login</NavItem>
+                  </LinkContainer>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes />
+        <AppContext.Provider
+          value={(this.state.isAuthenticated, this.state.userHasAuthenticated)}
+        >
+          <Routes />
+        </AppContext.Provider>
       </div>
     );
   }

@@ -17,8 +17,8 @@ export default function Routes() {
     /* Set up paths for pages */
     <Switch basename="src">
       {/* <BrowserRouter basename="src"> */}
-      <Route path="/" exact component={Menu} />
       <Route path="/login" exact component={Login} />
+      <Route path="/" exact component={Menu} />
       <Route path="/signup" exact component={SignUp} />
       <Route path="/menu" exact component={Menu} />
       <Route path="/location" exact component={Location} />

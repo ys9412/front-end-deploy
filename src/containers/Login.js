@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useAppContext } from "../libs/contextLib";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { Auth } from "aws-amplify";
 import "./Login.css";
 
-export default function Login(props) {
+export default function Login() {
+  const userHasAuthenticated = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,8 +27,10 @@ export default function Login(props) {
 
     try {
       await Auth.signIn(email, password);
-      alert("Logged in");
+      // alert("Logged in");
+      userHasAuthenticated(true);
     } catch (e) {
+      console.log(e);
       alert(e.message);
     }
   }
