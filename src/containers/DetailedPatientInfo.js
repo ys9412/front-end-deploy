@@ -46,7 +46,7 @@ class DetailedPatientInfo extends Component {
     this.getHeartRate(patientId);
     this.getHeartRateUpdated(patientId);
     //5000
-    this.timer = setInterval(() => this.getHeartRateUpdated(patientId), 20000);
+    this.timer = setInterval(() => this.getHeartRateUpdated(patientId), 5000);
   }
 
   // function handleSubmit(event) {
@@ -65,6 +65,7 @@ class DetailedPatientInfo extends Component {
       .then((response) => response.data)
       .then((result) => {
         this.setState({ heartRates: result });
+        console.log(apiHeartRateList + patientId);
         for (let i = 0; i < this.state.heartRates.length; i++) {
           this.setState((state) => {
             let heartRate = state.heartRate;
