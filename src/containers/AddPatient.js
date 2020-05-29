@@ -24,6 +24,7 @@ export default function AddPatient(props) {
   const [finish, setFinish] = useState();
 
   let gender;
+  //give options to choose between metric and english unit
 
   //validate input information. If user input is not valid, prompt error message.
   //Otherwise, prompt success message and redirect the user to menu page.
@@ -233,7 +234,10 @@ export default function AddPatient(props) {
                   className="weight"
                   onChange={(e) => setWeight(e.target.value)}
                 />
-                lbs.
+                <select style={{ width: 45 }}>
+                  <option value="lbs">lbs.</option>
+                  <option value="kg">kg</option>
+                </select>
               </td>
               <td colSpan="3">
                 <input
@@ -241,7 +245,10 @@ export default function AddPatient(props) {
                   className="height"
                   onChange={(e) => setHeight(e.target.value)}
                 />
-                ft/in
+                <select style={{ width: 47 }}>
+                  <option value="ft">ft/in</option>
+                  <option value="cm">cm</option>
+                </select>
               </td>
             </tr>
             <tr>

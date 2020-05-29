@@ -26,7 +26,9 @@ class DetailedPatientInfo extends Component {
     ],
     heartRates: [],
     heartRate: [],
+    currenthr: [],
     stressLevel: [],
+    waitingTime: [],
     temp: [],
     time: ["0 sec"],
   };
@@ -65,7 +67,21 @@ class DetailedPatientInfo extends Component {
       .then((response) => response.data)
       .then((result) => {
         this.setState({ heartRates: result });
-        console.log(apiHeartRateList + patientId);
+        this.setState({
+          currenthr: this.state.heartRates[this.state.heartRates.length - 1]
+            .heartrate,
+        });
+        let dateFirst = new Date(this.state.heartRates[0].time);
+        let dateLast = new Date(
+          this.state.heartRates[this.state.heartRates.length - 1].time
+        );
+        let secondsFirst = dateFirst.getTime() / 1000;
+        let secondsLast = dateLast.getTime() / 1000;
+        let waiting = secondsLast - secondsFirst;
+        let test = Math.floor(waiting / 60) + " min " + (waiting % 60) + " sec";
+        this.setState({ waitingTime: this.state.waitingTime.concat(test) });
+        console.log("api" + apiHeartRateList + patientId);
+
         for (let i = 0; i < this.state.heartRates.length; i++) {
           this.setState((state) => {
             let heartRate = state.heartRate;
@@ -79,8 +95,11 @@ class DetailedPatientInfo extends Component {
                 (totalSeconds % 60) +
                 " sec"
             );
+            //(this.state.heartRates[i].heartrate + this.state.time[i] / 12) / 2
             stressLevel = stressLevel.concat(
-              (this.state.heartRates[i].heartrate + this.state.time[i] / 12) / 2
+              Math.ceil(
+                (this.state.heartRates[i].heartrate + totalSeconds / 12) / 2
+              )
             );
             return {
               heartRate,
@@ -103,6 +122,15 @@ class DetailedPatientInfo extends Component {
         this.setState({
           heartRates: this.state.heartRates.concat(newHR),
         });
+        let dateFirst = new Date(this.state.heartRates[0].time);
+        let dateLast = new Date(
+          this.state.heartRates[this.state.heartRates.length - 1].time
+        );
+        let secondsFirst = dateFirst.getTime() / 1000;
+        let secondsLast = dateLast.getTime() / 1000;
+        let waiting = secondsLast - secondsFirst;
+        let test = Math.floor(waiting / 60) + " min " + (waiting % 60) + " sec";
+        this.setState({ waitingTime: this.state.waitingTime.concat(test) });
         for (let i = 0; i < newHR.length; i++) {
           this.setState((state) => {
             let heartRate = state.heartRate;
@@ -117,7 +145,9 @@ class DetailedPatientInfo extends Component {
                 " sec"
             );
             stressLevel = stressLevel.concat(
-              (newHR[i].heartrate + this.state.time[i] / 12) / 2
+              Math.ceil(
+                (this.state.heartRates[i].heartrate + totalSeconds / 12) / 2
+              )
             );
             return {
               heartRate,
@@ -126,6 +156,7 @@ class DetailedPatientInfo extends Component {
             };
           });
         }
+        console.log("sl: " + this.state.stressLevel);
       })
       .catch((error) => console.log("error", error));
   }
@@ -207,9 +238,16 @@ class DetailedPatientInfo extends Component {
               this.state.patients.dobyear}
           </p>
           <p>Sex: Male</p>
-          <p>Heart rate: 118 bpm</p>
-          <p>Stress level: 89 sl</p>
-          <p>Waiting time: 25 minutes 13 seconds</p>
+          <p>{"Heart rate: " + this.state.currenthr + " bpm"}</p>
+          <p>
+            {"Stress level: " +
+              this.state.stressLevel[this.state.stressLevel.length - 1] +
+              " sl"}
+          </p>
+          <p>
+            {"Waiting time: " +
+              this.state.waitingTime[this.state.waitingTime.length - 1]}
+          </p>
         </div>
         <Bar
           className="heart_rate_chart"
@@ -229,7 +267,7 @@ class DetailedPatientInfo extends Component {
           }}
         />
         <p className="break"></p>
-        <Bar
+        {/* <Bar
           className="room_chart"
           data={room}
           width={60}
@@ -245,7 +283,7 @@ class DetailedPatientInfo extends Component {
               position: "bottom",
             },
           }}
-        />
+        /> */}
       </div>
     );
   }
