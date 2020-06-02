@@ -124,6 +124,10 @@ class DetailedPatientInfo extends Component {
         this.setState({
           heartRates: this.state.heartRates.concat(newHR),
         });
+        this.setState({
+          currenthr: this.state.heartRates[this.state.heartRates.length - 1]
+            .heartrate,
+        });
         let dateFirst = new Date(this.state.heartRates[0].time);
         let dateLast = new Date(
           this.state.heartRates[this.state.heartRates.length - 1].time
