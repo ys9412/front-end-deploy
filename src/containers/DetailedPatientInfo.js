@@ -6,6 +6,8 @@ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "https://lachesisfitbit.com/api/getbyid=";
 const apiHeartRateList = "https://lachesisfitbit.com/api/getAllActivebypid=";
 
+//target heart rate:
+
 class DetailedPatientInfo extends Component {
   constructor(props) {
     super(props);
@@ -197,6 +199,35 @@ class DetailedPatientInfo extends Component {
         },
       ],
     };
+    let maxHR = Math.max(this.state.heartRate);
+    console.log("mxhr" + Math.max(this.state.heartRate));
+    const partition = {
+      labels: this.state.time,
+      datasets: [
+        {
+          label: "Heart rate(bpm)",
+          backgroundColor: "rgba(75,192,192,1)",
+          borderColor: "rgba(0,0,0,1)",
+          borderWidth: 0.3,
+          data: this.state.heartRate,
+        },
+        {
+          label: "Stress level(sl)",
+          backgroundColor: "rgba(255, 246, 143, 1)",
+          borderColor: "rgba(0,0,0,1)",
+          borderWidth: 0.3,
+          data: this.state.stressLevel,
+        },
+        {
+          label: "Partition",
+          backgroundColor: "rgba(141, 252, 209, 1)",
+          borderColor: "rgba(36, 249, 168, 1)",
+          borderWidth: 0.5,
+          width: 20,
+          data: [maxHR, maxHR, maxHR],
+        },
+      ],
+    };
 
     //graph format for waiting time
     const room = {
@@ -266,16 +297,16 @@ class DetailedPatientInfo extends Component {
             },
           }}
         />
-        <p className="break"></p>
-        {/* <Bar
-          className="room_chart"
-          data={room}
+        {/* <p className="break"></p>
+        <Bar
+          className="test"
+          data={partition}
           width={60}
           height={30}
           options={{
             title: {
               display: true,
-              text: "Time Spent at Each Room",
+              text: "Heart Rate & Stress Level",
               fontSize: 20,
             },
             legend: {

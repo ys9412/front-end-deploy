@@ -26,6 +26,7 @@ const apiAll = "https://lachesisfitbit.com/api/getAllPatients";
 const apiActive = "https://lachesisfitbit.com/api/getActivePatients";
 const apiHeartRate = "https://lachesisfitbit.com/api/getbyfid=2";
 const newLocationApi = "https://lachesisfitbit.com/api/getRecentLocationByMid=";
+const apiHeartRateList = "https://lachesisfitbit.com/api/getAllActivebypid=";
 
 // /getAllbyfid=1
 // /recentFitbit=1
@@ -78,107 +79,27 @@ class Location extends Component {
   getPatients() {
     //fetch heartrate data from fitbit device 1, 2, 3
     console.log("test interval");
-    // for (let i = 1; i < 4; i++) {
-    //   axios
-    //     .get(heartRateApi + i.toString())
-    //     .then((response) => response.data)
-    //     .then((result) => {
-    //       this.setState({ heartRate: this.state.heartRate.concat(result) });
-    //       console.log(this.state.heartRate);
-    //     })
-
-    //     .catch((error) => console.log("error", error));
-    // }
-    //---------------------------------------------------------------------------------------------------------------
-    // axios
-    //   .get(heartRateApi + "1")
-    //   .then((response) => response.data)
-    //   .then((result) => {
-    //     this.setState({ heartRate1: result });
-    //     console.log("pid 1 Heartrate:" + this.state.heartRate1.heartrate);
-    //   })
-
-    //   .catch((error) => console.log("error", error));
-    // axios
-    //   .get(heartRateApi + "2")
-    //   .then((response) => response.data)
-    //   .then((result) => {
-    //     this.setState({ heartRate2: result });
-    //     console.log("pid 2 Heartrate:" + this.state.heartRate2.heartrate);
-    //   })
-
-    //   .catch((error) => console.log("error", error));
-    // axios
-    //   .get(heartRateApi + "3")
-    //   .then((response) => response.data)
-    //   .then((result) => {
-    //     this.setState({ heartRate3: result });
-    //     console.log("pid 3 Heartrate:" + this.state.heartRate3.heartrate);
-    //   })
-
-    //   .catch((error) => console.log("error", error));
-    //---------------------------------------------------------------------------------------------------------------
-
-    //fetch lodation data from mobile phone 1, 2, 3
-    // for (let i = 1; i < 4; i++) {
-    //   axios
-    //     .get(locationApi + i.toString())
-    //     .then((response) => response.data)
-    //     .then((result) => {
-    //       this.setState({ location: this.state.location.concat(result) });
-    //       console.log(this.state.location);
-    //     })
-
-    //     .catch((error) => console.log("error", error));
-    // }
-    //---------------------------------------------------------------------------------------------------------------
-    //  axios
-    //     .get(locationApi + "1")
-    //     .then((response) => response.data)
-    //     .then((result) => {
-    //       this.setState({ location1: result });
-    //       console.log("pid 1 location:" + this.state.location1.location);
-    //     })
-
-    //     .catch((error) => console.log("error", error));
-    //   axios
-    //     .get(locationApi + "2")
-    //     .then((response) => response.data)
-    //     .then((result) => {
-    //       this.setState({ location2: result });
-    //       console.log("pid 2 location:" + this.state.location2.location);
-    //     })
-
-    //     .catch((error) => console.log("error", error));
-    //   axios
-    //     .get(locationApi + "3")
-    //     .then((response) => response.data)
-    //     .then((result) => {
-    //       this.setState({ location3: result });
-    //       console.log("pid 3 location:" + this.state.location3.location);
-    //     })
-
-    //     .catch((error) => console.log("error", error));
-    //---------------------------------------------------------------------------------------------------------------
 
     axios
       .get(apiActive)
       .then((response) => response.data)
       .then((result) => {
         this.setState({ patients: result });
-        console.log("patients" + this.state.patients);
+        console.log("patients" + this.state.patients[0].firstName);
+        console.log("patients" + this.state.patients[1].firstName);
         let count1 = 0;
         let count2 = 0;
         let count3 = 0;
         let count4 = 0;
         for (let i = 1; i <= this.state.patients.length; i++) {
           axios
-            .get(heartRateApi + i.toString())
+            .get(apiHeartRateList + this.state.patients[i - 1].pid)
             .then((response) => response.data)
             .then((result) => {
-              console.log(result);
-              this.setState({ heartRate: this.state.heartRate.concat(result) });
-              console.log("result" + this.state.heartRate[i - 1].heartrate);
+              console.log(apiHeartRateList + this.state.patients[i - 1].pid);
+              let temp = result[result.length - 1];
+              this.setState({ heartRate: this.state.heartRate.concat(temp) });
+              console.log("line 183" + this.state.heartRate[i - 1].heartrate);
               this.setState((state) => {
                 const patients = state.patients;
                 patients[i - 1].heartRate = this.state.heartRate[
@@ -263,99 +184,17 @@ class Location extends Component {
 
             .catch((error) => console.log("error", error));
         }
+        console.log(
+          "line 186: " + this.state.patients[0],
+          this.state.patients[1]
+        );
+        console.log(
+          "line 187: " + this.state.heartRate[0],
+          this.state.heartRate[1]
+        );
       })
 
       .catch((error) => console.log("error", error));
-
-    //fetch patient list
-    // axios
-    //   .get(apiActive)
-    //   .then((response) => response.data)
-    //   .then((result) => {
-    //     this.setState({ patients: result });
-    //     console.log(this.state.patients);
-    //     //for (let i = 0; i < this.state.patients.length; i++) {
-    //     this.state.patients[0].heartRate = this.state.heartRate1.heartrate;
-    //     this.state.patients[1].heartRate = this.state.heartRate2.heartrate;
-    //     this.state.patients[2].heartRate = this.state.heartRate3.heartrate;
-    //     this.state.patients[0].location = this.state.location1.location;
-    //     this.state.patients[1].location = this.state.location2.location;
-    //     this.state.patients[2].location = this.state.location3.location;
-    //     let count1 = 0;
-    //     let count2 = 0;
-    //     let count3 = 0;
-    //     let count4 = 0;
-    //     for (let i = 0; i < 3; i++) {
-    //       this.setState((state) => {
-    //         const patients = state.patients;
-    //         patients[i].stressLevel = 70;
-    //         patients[i].img = green;
-    //         if (patients[i].location === "RoomA") {
-    //           patients[i].left = 56 + count1 * 2;
-    //           patients[i].right = 44;
-    //           patients[i].top = 110;
-    //           count1++;
-    //           // patients[i].bottom = 32;
-    //           //145
-    //         }
-    //         if (patients[i].location === "RoomB") {
-    //           patients[i].left = 61 + count2 * 2;
-    //           patients[i].right = 39;
-    //           patients[i].top = 110;
-    //           count2++;
-    //           // patients[i].bottom = 32;
-    //         }
-    //         if (patients[i].location === "RoomC") {
-    //           patients[i].left = 56 + count3 * 2;
-    //           patients[i].right = 43;
-    //           patients[i].top = 90;
-    //           count3++;
-    //           // patients[i].bottom = 58;
-    //         }
-    //         if (patients[i].location === "Waiting") {
-    //           patients[i].left = 33 + count4 * 2;
-    //           patients[i].right = 45;
-    //           patients[i].top = 87;
-    //           count4++;
-    //           // patients[i].bottom = 58;
-    //         }
-
-    //         return {
-    //           patients,
-    //         };
-    //       });
-    //     }
-    //     console.log(this.state.patients);
-
-    //     //set the color/shape based on the stress level of the patients in the list
-    //     for (let i = 0; i < this.state.patients.length; i++) {
-    //       if (this.state.patients[i].heartRate <= 70)
-    //         this.setState((state) => {
-    //           const patients = state.patients;
-    //           patients[i].img = green;
-    //           return {
-    //             patients,
-    //           };
-    //         });
-    //       else if (this.state.patients[i].heartRate <= 85)
-    //         this.setState((state) => {
-    //           const patients = state.patients;
-    //           patients[i].img = yellow;
-    //           return {
-    //             patients,
-    //           };
-    //         });
-    //       else if (this.state.patients[i].heartRate >= 85)
-    //         this.setState((state) => {
-    //           const patients = state.patients;
-    //           patients[i].img = red;
-    //           return {
-    //             patients,
-    //           };
-    //         });
-    //     }
-    //   })
-    //   .catch((error) => console.log("error", error));
   }
 
   //redirect the user to the "DetailedPatientInfo" page for the patient clicked, and pass patient id as parameter in url.
