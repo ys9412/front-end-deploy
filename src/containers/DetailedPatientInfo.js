@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./DetailedPatientInfo.css";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import axios from "axios";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const api = "https://lachesisfitbit.com/api/getbyid=";
@@ -206,6 +206,7 @@ class DetailedPatientInfo extends Component {
     let maxHR = Math.max(this.state.heartRate);
     console.log("mxhr" + Math.max(this.state.heartRate));
     const partition = {
+      backgroundColor: "#F5DEB3",
       labels: this.state.time,
       datasets: [
         {
@@ -222,14 +223,14 @@ class DetailedPatientInfo extends Component {
           borderWidth: 0.3,
           data: this.state.stressLevel,
         },
-        {
-          label: "Partition",
-          backgroundColor: "rgba(141, 252, 209, 1)",
-          borderColor: "rgba(36, 249, 168, 1)",
-          borderWidth: 0.5,
-          width: 20,
-          data: [maxHR, maxHR, maxHR],
-        },
+        // {
+        //   label: "Partition",
+        //   backgroundColor: "rgba(141, 252, 209, 1)",
+        //   borderColor: "rgba(36, 249, 168, 1)",
+        //   borderWidth: 0.5,
+        //   width: 20,
+        //   data: [maxHR, maxHR, maxHR],
+        // },
       ],
     };
 
@@ -301,13 +302,30 @@ class DetailedPatientInfo extends Component {
             },
           }}
         />
-        {/* <p className="break"></p>
-        <Bar
+        <p className="break"></p>
+        {/* <Bar
+          backgroundColor="lightblue"
           className="test"
           data={partition}
           width={60}
           height={30}
           options={{
+            annotation: {
+              annotations: [
+                {
+                  type: "line",
+                  mode: "vertical",
+                  scaleID: "x-axis-0",
+                  value: this.state.waitingTime[5],
+                  borderColor: "red",
+                  label: {
+                    content: "TODAY",
+                    enabled: true,
+                    position: "top",
+                  },
+                },
+              ],
+            },
             title: {
               display: true,
               text: "Heart Rate & Stress Level",

@@ -93,7 +93,7 @@ class PatientList extends Component {
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Waiting Time</th>
+              {/* <th>Waiting Time</th> */}
             </tr>
           </thead>
           <tbody>
@@ -113,7 +113,7 @@ class PatientList extends Component {
                     Remove
                   </button>
                 </td>
-                <td onClick={this.handleSubmit(patient.pid)}>25 min 13 sec</td>
+                {/* <td onClick={this.handleSubmit(patient.pid)}>25 min 13 sec</td> */}
               </tr>
             ))}
             {/* <tr>
