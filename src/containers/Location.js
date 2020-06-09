@@ -105,6 +105,7 @@ class Location extends Component {
     let count2 = 0;
     let count3 = 0;
     let count4 = 0;
+    let count5 = 0;
     for (let i = 1; i <= this.state.patients.length; i++) {
       this.setHeartRate(i);
 
@@ -223,12 +224,21 @@ class Location extends Component {
                 count4++;
               }
             }
+            if (result === "LN") {
+              this.setState((state) => {
+                const patients = state.patients;
+                patients[i - 1].left = 70 + count1 * 2;
+                patients[i - 1].right = 44;
+                patients[i - 1].top = 85;
+              });
+              count5++;
+            }
             if (result === "") {
               this.setState((state) => {
                 const patients = state.patients;
                 patients[i - 1].left = 56 + count1 * 2;
-                patients[i - 1].right = 44;
-                patients[i - 1].top = 110;
+                patients[i - 1].right = 43;
+                patients[i - 1].top = 90;
               });
               count1++;
             }

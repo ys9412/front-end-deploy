@@ -194,13 +194,13 @@ class DetailedPatientInfo extends Component {
           borderWidth: 0.3,
           data: this.state.heartRate,
         },
-        {
-          label: "Stress level(sl)",
-          backgroundColor: "rgba(255, 246, 143, 1)",
-          borderColor: "rgba(0,0,0,1)",
-          borderWidth: 0.3,
-          data: this.state.stressLevel,
-        },
+        // {
+        //   label: "Stress level(sl)",
+        //   backgroundColor: "rgba(255, 246, 143, 1)",
+        //   borderColor: "rgba(0,0,0,1)",
+        //   borderWidth: 0.3,
+        //   data: this.state.stressLevel,
+        // },
       ],
     };
     // let maxHR = Math.max(this.state.heartRate);
