@@ -295,6 +295,14 @@ class DetailedPatientInfo extends Component {
               display: true,
               position: "bottom",
             },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 180,
+                }
+              }]
+            },
           }}
         />
         <p className="break"></p>
