@@ -99,9 +99,7 @@ class DetailedPatientInfo extends Component {
             );
             //(this.state.heartRates[i].heartrate + this.state.time[i] / 12) / 2
             stressLevel = stressLevel.concat(
-              Math.ceil(
-                (this.state.heartRates[i].heartrate + totalSeconds / 12) / 2
-              )
+              Math.ceil(this.state.heartRates[i].heartrate / 2)
             );
             return {
               heartRate,
@@ -151,9 +149,7 @@ class DetailedPatientInfo extends Component {
                 " sec"
             );
             stressLevel = stressLevel.concat(
-              Math.ceil(
-                (this.state.heartRates[i].heartrate + totalSeconds / 12) / 2
-              )
+              Math.ceil(this.state.heartRates[i].heartrate / 2)
             );
             return {
               heartRate,
@@ -194,13 +190,13 @@ class DetailedPatientInfo extends Component {
           borderWidth: 0.3,
           data: this.state.heartRate,
         },
-        // {
-        //   label: "Stress level(sl)",
-        //   backgroundColor: "rgba(255, 246, 143, 1)",
-        //   borderColor: "rgba(0,0,0,1)",
-        //   borderWidth: 0.3,
-        //   data: this.state.stressLevel,
-        // },
+        {
+          label: "Stress level(sl)",
+          backgroundColor: "rgba(255, 246, 143, 1)",
+          borderColor: "rgba(0,0,0,1)",
+          borderWidth: 0.3,
+          data: this.state.stressLevel,
+        },
       ],
     };
     // let maxHR = Math.max(this.state.heartRate);

@@ -237,8 +237,8 @@ class Location extends Component {
               this.setState((state) => {
                 const patients = state.patients;
                 patients[i - 1].left = 56 + count1 * 2;
-                patients[i - 1].right = 43;
-                patients[i - 1].top = 90;
+                patients[i - 1].right = 44;
+                patients[i - 1].top = 110;
               });
               count1++;
             }
