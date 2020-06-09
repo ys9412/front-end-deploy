@@ -224,7 +224,7 @@ class Location extends Component {
                 count4++;
               }
             }
-            if (result === "LN") {
+            if (result === "LN3") {
               this.setState((state) => {
                 const patients = state.patients;
                 patients[i - 1].left = 70 + count1 * 2;
