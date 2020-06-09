@@ -223,16 +223,17 @@ class Location extends Component {
                 });
                 count4++;
               }
+              if (patients[i - 1].location === "LN3") {
+                this.setState((state) => {
+                  const patients = state.patients;
+                  patients[i - 1].left = 70 + count1 * 2;
+                  patients[i - 1].right = 44;
+                  patients[i - 1].top = 85;
+                });
+                count5++;
+              }
             }
-            if (result === "LN3") {
-              this.setState((state) => {
-                const patients = state.patients;
-                patients[i - 1].left = 70 + count1 * 2;
-                patients[i - 1].right = 44;
-                patients[i - 1].top = 85;
-              });
-              count5++;
-            }
+
             if (result === "") {
               this.setState((state) => {
                 const patients = state.patients;
